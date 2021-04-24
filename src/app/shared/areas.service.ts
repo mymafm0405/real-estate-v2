@@ -8,21 +8,23 @@ import { Subject } from 'rxjs';
 export class AreasService {
 
   areasChanged = new Subject<boolean>();
+  areaAddingStatus = new Subject<boolean>();
 
   areas: Area[] = [];
 
   constructor(private generalService: GeneralService) {}
 
-  addArea() {
-    const newArea: Area = new Area('Aziziya', 'area 57');
+  addArea(newArea: Area) {
     this.generalService.addNewData('areas', newArea)
     .subscribe(
       (res: { name: string }) => {
         this.areas.push({...newArea, id: res.name});
         this.areasChanged.next(true);
+        this.areaAddingStatus.next(true);
       },
       (error) => {
         console.log(error);
+        this.areaAddingStatus.next(false);
       }
     );
   }

@@ -16,6 +16,17 @@ import { AllReceiptsComponent } from './receipts/all-receipts/all-receipts.compo
 import { ReceiptComponent } from './receipts/receipt/receipt.component';
 import { AddReceiptFormComponent } from './receipts/add-receipt-form/add-receipt-form.component';
 import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from './header/header/header.component';
+import { MenuComponent } from './header/menu/menu.component';
+import { MenuItemComponent } from './header/menu-item/menu-item.component';
+import { RouterModule, Routes } from '@angular/router';
+import { AreasComponent } from './areas/areas/areas.component';
+
+const appRoutes: Routes = [
+  {path: 'areas', component: AreasComponent, children: [
+    {path: 'add-area', component: AddAreaFormComponent}
+  ]}
+]
 
 @NgModule({
   declarations: [
@@ -32,8 +43,12 @@ import { FormsModule } from '@angular/forms';
     AllReceiptsComponent,
     ReceiptComponent,
     AddReceiptFormComponent,
+    HeaderComponent,
+    MenuComponent,
+    MenuItemComponent,
+    AreasComponent,
   ],
-  imports: [BrowserModule, FormsModule, HttpClientModule],
+  imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
   providers: [],
   bootstrap: [AppComponent],
 })

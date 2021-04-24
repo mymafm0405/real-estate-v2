@@ -1,1 +1,11 @@
-<p>add-area-form works!</p>
+<div class="row">
+  <div class="col-md-12">
+    <form (ngSubmit)="onSubmit()" #addForm="ngForm">
+      <input type="text" class="form-control" name="name" placeholder="Area name" ngModel required>
+      <input type="text" class="form-control" name="address" placeholder="Area address" ngModel required>
+      <button class="btn btn-danger" type="submit" [disabled]="addForm.invalid || loading">{{ loading ? 'Wait...' : 'Save'}}</button>
+      <h4 class="success" *ngIf="addingStatus !== undefined && addingStatus">Adding area success</h4>
+      <h4 class="error" *ngIf="addingStatus !== undefined && !addingStatus">Error happened!</h4>
+    </form>
+  </div>
+</div>
