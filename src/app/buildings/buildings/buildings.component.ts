@@ -16,7 +16,7 @@ export class BuildingsComponent implements OnInit {
     ),
     new MenuItem(
       'View buildings',
-      'view-buildings',
+      'view-buildings/all',
       'glyphicon glyphicon-home',
       'sub'
     ),

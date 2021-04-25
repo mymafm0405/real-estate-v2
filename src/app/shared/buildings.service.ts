@@ -16,6 +16,14 @@ export class BuildingsService {
     return this.buildings;
   }
 
+  getBuildingById(buildingId: string) {
+    return this.buildings.find(building => building.id === buildingId);
+  }
+
+  getBuildingsByAreaId(areaId: string) {
+    return this.buildings.filter(building => building.areaId === areaId);
+  }
+
   addBuilding(newBuilding: Building) {
     this.generalService.addNewData('buildings', newBuilding).subscribe(
       (res: { name: string }) => {

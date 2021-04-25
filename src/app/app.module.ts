@@ -39,7 +39,8 @@ const appRoutes: Routes = [
     component: BuildingsComponent,
     children: [
       { path: 'add-building', component: AddBuildingFormComponent },
-      { path: 'view-buildings', component: AllBuildingsComponent },
+      { path: 'view-buildings/:areaId', component: AllBuildingsComponent },
+      { path: 'building/:id', component: BuildingDetailsComponent },
     ],
   },
 ];

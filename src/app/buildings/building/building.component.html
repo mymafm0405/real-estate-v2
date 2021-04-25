@@ -1,4 +1,4 @@
-<div class="col-md-2 building">
+<div class="col-md-2 building" [routerLink]="['../../building', building.id]" *ngIf="area !== undefined">
   <img src="../../../assets/images/building.png" width="75" height="75" />
   <h3>{{ building.name }}</h3>
   <h4>{{ area.name }}</h4>

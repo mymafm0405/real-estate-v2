@@ -1,1 +1,7 @@
-<p>building-details works!</p>
+<div class="row" *ngIf="building !== undefined && area !== undefined">
+  <div class="col-md-12">
+    <h1 class="title">{{ building.name }}</h1>
+    <h3>Location: <span class="location">{{ area.name }}</span></h3>
+    <h4 class="description">{{ building.description }}</h4>
+  </div>
+</div>
