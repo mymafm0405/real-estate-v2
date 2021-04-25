@@ -21,12 +21,28 @@ import { MenuComponent } from './header/menu/menu.component';
 import { MenuItemComponent } from './header/menu-item/menu-item.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AreasComponent } from './areas/areas/areas.component';
+import { SubMenuComponent } from './header/sub-menu/sub-menu.component';
+import { BuildingsComponent } from './buildings/buildings/buildings.component';
+import { BuildingDetailsComponent } from './buildings/building-details/building-details.component';
 
 const appRoutes: Routes = [
-  {path: 'areas', component: AreasComponent, children: [
-    {path: 'add-area', component: AddAreaFormComponent}
-  ]}
-]
+  {
+    path: 'areas',
+    component: AreasComponent,
+    children: [
+      { path: 'add-area', component: AddAreaFormComponent },
+      { path: 'view-areas', component: AllAreasComponent },
+    ],
+  },
+  {
+    path: 'buildings',
+    component: BuildingsComponent,
+    children: [
+      { path: 'add-building', component: AddBuildingFormComponent },
+      { path: 'view-buildings', component: AllBuildingsComponent },
+    ],
+  },
+];
 
 @NgModule({
   declarations: [
@@ -47,8 +63,16 @@ const appRoutes: Routes = [
     MenuComponent,
     MenuItemComponent,
     AreasComponent,
+    SubMenuComponent,
+    BuildingsComponent,
+    BuildingDetailsComponent,
   ],
-  imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

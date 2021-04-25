@@ -1,0 +1,12 @@
+.success {
+  color: green;
+}
+.error {
+  color: red;
+}
+.row {
+  text-align: center;
+}
+input {
+  margin: 10px 0;
+}

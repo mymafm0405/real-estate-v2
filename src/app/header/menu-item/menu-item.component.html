@@ -1,1 +1,8 @@
-<p>menu-item works!</p>
+<div
+  [ngClass]="menuItem.type === 'sub' ? 'col-md-2 item-sub' : 'col-md-1 item'"
+  [routerLink]="menuItem.path"
+  routerLinkActive="{{ menuItem.type === 'sub' ? 'active-sub' : 'active' }}"
+>
+  <h4><span [class]="menuItem.icon"></span></h4>
+  <h4>{{ menuItem.name }}</h4>
+</div>

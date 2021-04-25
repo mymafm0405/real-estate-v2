@@ -1,1 +1,42 @@
-<p>add-building-form works!</p>
+<div class="row">
+  <div class="col-md-12">
+    <h2>Add new building</h2>
+    <form (ngSubmit)="onSubmit()" #addForm="ngForm">
+      <select name="areaId" class="form-control" ngModel required>
+        <option value="">Select an area</option>
+        <option [value]="area.id" *ngFor="let area of allAreas">
+          {{ area.name }}
+        </option>
+      </select>
+      <input
+        type="text"
+        name="name"
+        class="form-control"
+        placeholder="Building name"
+        ngModel
+        required
+      />
+      <input
+        type="text"
+        name="description"
+        class="form-control"
+        placeholder="Building description"
+        ngModel
+        required
+      />
+      <button
+        class="btn btn-primary"
+        type="submit"
+        [disabled]="addForm.invalid || loading"
+      >
+        {{ loading ? "Wait..." : "Save" }}
+      </button>
+      <h4 class="success" *ngIf="addingStatus !== undefined && addingStatus">
+        Adding building success
+      </h4>
+      <h4 class="error" *ngIf="addingStatus !== undefined && !addingStatus">
+        Error happened!
+      </h4>
+    </form>
+  </div>
+</div>

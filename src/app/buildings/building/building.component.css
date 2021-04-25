@@ -1,0 +1,35 @@
+.building {
+  text-align: center;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  margin: 5px 5px;
+  border: 1px dotted #666;
+  padding: 5px;
+  min-height: 250px;
+}
+.building:hover {
+  background-color: #d4d4d4;
+}
+h3 {
+  color: #006db6;
+}
+h4 {
+  color: #3d3d3d;
+}
+p {
+  color: #7a7a7a;
+  height: 40px;
+}
+.empty {
+  background-color: #70c200;
+  padding: 8px;
+  border-radius: 7px;
+  color: white;
+}
+.rented {
+  background-color: #c2004e;
+  padding: 8px;
+  border-radius: 7px;
+  color: white;
+}

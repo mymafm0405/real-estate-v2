@@ -4,3 +4,9 @@
 .error {
   color: red;
 }
+.row {
+  text-align: center;
+}
+input {
+  margin: 5px 0;
+}

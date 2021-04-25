@@ -1,1 +1,9 @@
-<p>all-areas works!</p>
+<div class="row">
+  <h2>All areas</h2>
+</div>
+<div class="row" *ngIf="allAreas.length > 0">
+  <app-area *ngFor="let area of allAreas" [area]="area"></app-area>
+</div>
+<div class="row" *ngIf="allAreas.length === 0">
+  <h4 class="error">No areas found!</h4>
+</div>
