@@ -1,10 +1,10 @@
-<div class="col-md-2 building" [routerLink]="['../../building', building.id]" *ngIf="area !== undefined">
+<div
+  class="col-md-2 building"
+  [routerLink]="['../../building', building.id]"
+  *ngIf="area !== undefined"
+>
   <img src="../../../assets/images/building.png" width="75" height="75" />
   <h3>{{ building.name }}</h3>
   <h4>{{ area.name }}</h4>
   <p>{{ building.description }}</p>
-  <span class="empty" *ngIf="building.contractId === 'empty'">
-    + New contract
-  </span>
-  <span class="rented" *ngIf="building.contractId !== 'empty'"> Rented </span>
 </div>

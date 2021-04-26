@@ -6,7 +6,7 @@
   margin: 5px 5px;
   border: 1px dotted #666;
   padding: 5px;
-  min-height: 250px;
+  min-height: 230px;
 }
 .building:hover {
   background-color: #d4d4d4;
@@ -20,16 +20,4 @@ h4 {
 p {
   color: #7a7a7a;
   height: 40px;
-}
-.empty {
-  background-color: #70c200;
-  padding: 8px;
-  border-radius: 7px;
-  color: white;
-}
-.rented {
-  background-color: #c2004e;
-  padding: 8px;
-  border-radius: 7px;
-  color: white;
 }

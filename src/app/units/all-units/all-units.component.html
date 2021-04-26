@@ -1,0 +1,6 @@
+<div class="col-md-12" *ngIf="units.length === 0">
+  <h4 class="error">No units in this building!</h4>
+</div>
+<div class="col-md-12" *ngIf="units.length > 0">
+  <app-unit *ngFor="let unit of units" [unit]="unit"></app-unit>
+</div>

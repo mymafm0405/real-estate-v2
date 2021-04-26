@@ -1,7 +1,19 @@
 <div class="row" *ngIf="building !== undefined && area !== undefined">
   <div class="col-md-12">
     <h1 class="title">{{ building.name }}</h1>
-    <h3>Location: <span class="location">{{ area.name }}</span></h3>
+    <h3>
+      Location: <span class="location">{{ area.name }}</span>
+    </h3>
     <h4 class="description">{{ building.description }}</h4>
+    <button class="btn btn-success" (click)="onShowAddForm()">
+      <span class="glyphicon glyphicon-plus"></span> Unit
+    </button>
   </div>
+</div>
+<app-add-unit-form
+  *ngIf="showAddForm"
+  [buildingId]="building.id"
+></app-add-unit-form>
+<div class="row" *ngIf="building !== undefined && area !== undefined">
+  <app-all-units [buildingId]="building.id"></app-all-units>
 </div>

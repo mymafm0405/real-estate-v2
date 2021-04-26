@@ -9,37 +9,43 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-building-details',
   templateUrl: './building-details.component.html',
-  styleUrls: ['./building-details.component.css']
+  styleUrls: ['./building-details.component.css'],
 })
 export class BuildingDetailsComponent implements OnInit, OnDestroy {
   building: Building;
   buildingsChangedSub: Subscription;
   areasChangedSub: Subscription;
 
+  showAddForm = false;
+
   area: Area;
 
-  constructor(private route: ActivatedRoute, private buildingsService: BuildingsService, private areasService: AreasService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private buildingsService: BuildingsService,
+    private areasService: AreasService
+  ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(
-      (params: Params) => {
-        this.building = this.buildingsService.getBuildingById(params.id);
+    this.route.params.subscribe((params: Params) => {
+      this.building = this.buildingsService.getBuildingById(params.id);
+      this.getArea();
+
+      this.buildingsChangedSub = this.buildingsService.buildingsChanged.subscribe(
+        () => {
+          this.building = this.buildingsService.getBuildingById(params.id);
+          this.getArea();
+        }
+      );
+
+      this.areasChangedSub = this.areasService.areasChanged.subscribe(() => {
         this.getArea();
+      });
+    });
+  }
 
-        this.buildingsChangedSub = this.buildingsService.buildingsChanged.subscribe(
-          () => {
-            this.building = this.buildingsService.getBuildingById(params.id);
-            this.getArea();
-          }
-        )
-
-        this.areasChangedSub = this.areasService.areasChanged.subscribe(
-          () => {
-            this.getArea();
-          }
-        )
-      }
-    )
+  onShowAddForm() {
+    this.showAddForm = !this.showAddForm;
   }
 
   getArea() {
@@ -52,5 +58,4 @@ export class BuildingDetailsComponent implements OnInit, OnDestroy {
     this.buildingsChangedSub.unsubscribe();
     this.areasChangedSub.unsubscribe();
   }
-
 }

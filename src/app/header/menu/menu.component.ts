@@ -23,6 +23,12 @@ export class MenuComponent implements OnInit {
     ),
     new MenuItem('Clients', 'clients', 'glyphicon glyphicon-user', 'main'),
     new MenuItem('Payments', 'payments', 'glyphicon glyphicon-usd', 'main'),
+    new MenuItem(
+      'Notifications',
+      'contracts',
+      'glyphicon glyphicon-envelope',
+      'main'
+    ),
   ];
   constructor() {}
 

@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <form (ngSubmit)="onSubmit()" #addForm="ngForm">
+      <input
+        type="text"
+        name="name"
+        class="form-control"
+        placeholder="Unit name"
+        ngModel
+        required
+      />
+      <input
+        type="text"
+        name="description"
+        class="form-control"
+        placeholder="Unit description"
+        ngModel
+        required
+      />
+      <input
+        type="number"
+        name="price"
+        class="form-control"
+        placeholder="Unit price"
+        ngModel
+        required
+      />
+      <button
+        class="btn btn-primary"
+        type="submit"
+        [disabled]="addForm.invalid || loading"
+      >
+        {{ loading ? "Wait.." : "Add unit" }}
+      </button>
+      <h4 class="success" *ngIf="addingStatus !== undefined && addingStatus">
+        Adding unit success!
+      </h4>
+      <h4 class="error" *ngIf="addingStatus !== undefined && !addingStatus">
+        Error happened!
+      </h4>
+    </form>
+  </div>
+</div>

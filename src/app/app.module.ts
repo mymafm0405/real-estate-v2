@@ -24,6 +24,10 @@ import { AreasComponent } from './areas/areas/areas.component';
 import { SubMenuComponent } from './header/sub-menu/sub-menu.component';
 import { BuildingsComponent } from './buildings/buildings/buildings.component';
 import { BuildingDetailsComponent } from './buildings/building-details/building-details.component';
+import { UnitsComponent } from './units/units/units.component';
+import { AddUnitFormComponent } from './units/add-unit-form/add-unit-form.component';
+import { UnitComponent } from './units/unit/unit.component';
+import { AllUnitsComponent } from './units/all-units/all-units.component';
 
 const appRoutes: Routes = [
   {
@@ -67,6 +71,10 @@ const appRoutes: Routes = [
     SubMenuComponent,
     BuildingsComponent,
     BuildingDetailsComponent,
+    UnitsComponent,
+    AddUnitFormComponent,
+    UnitComponent,
+    AllUnitsComponent,
   ],
   imports: [
     BrowserModule,
