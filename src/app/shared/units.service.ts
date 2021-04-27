@@ -9,6 +9,7 @@ export class UnitsService {
 
   unitsChanged = new Subject<boolean>();
   unitAddingStatus = new Subject<boolean>();
+  unitIdClickedForNewContract = new Subject<Unit>();
 
   constructor(private generalService: GeneralService) {}
 
@@ -43,5 +44,13 @@ export class UnitsService {
         console.log(error);
       }
     );
+  }
+
+  changeUnitContractId(unitId: string, contractId: string) {
+    this.generalService.patchCurrentData('units', unitId, { contractId }).subscribe(
+      () => {
+        console.log('unit updated');
+      }
+    )
   }
 }

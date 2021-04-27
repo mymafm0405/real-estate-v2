@@ -1,3 +1,4 @@
+import { Unit } from './../../shared/unit.model';
 import { AreasService } from './../../shared/areas.service';
 import { Area } from './../../shared/area.model';
 import { BuildingsService } from './../../shared/buildings.service';
@@ -24,6 +25,10 @@ export class BuildingDetailsComponent implements OnInit, OnDestroy {
   areasChangedSub: Subscription;
 
   unitsChangedSub: Subscription;
+
+  unitIdClickedForNewContractSub: Subscription;
+  unitClicked = false;
+  unitChoosed: Unit;
 
   constructor(
     private route: ActivatedRoute,
@@ -56,6 +61,13 @@ export class BuildingDetailsComponent implements OnInit, OnDestroy {
         this.getRemainingUnits();
         this.getCreatedUnits();
       });
+
+      this.unitIdClickedForNewContractSub = this.unitsService.unitIdClickedForNewContract.subscribe(
+        (unit: Unit) => {
+          this.unitChoosed = unit;
+          this.unitClicked = true;
+        }
+      )
     });
   }
 

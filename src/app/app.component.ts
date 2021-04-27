@@ -1,7 +1,9 @@
+import { ContractsService } from './shared/contracts.service';
 import { AreasService } from './shared/areas.service';
 import { Component, OnInit } from '@angular/core';
 import { BuildingsService } from './shared/buildings.service';
 import { UnitsService } from './shared/units.service';
+import { ClientsService } from './shared/clients.service';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +16,16 @@ export class AppComponent implements OnInit {
   constructor(
     private areasService: AreasService,
     private buildingsService: BuildingsService,
-    private unitsService: UnitsService
+    private unitsService: UnitsService,
+    private contractsService: ContractsService,
+    private clientsService: ClientsService
   ) {}
 
   ngOnInit() {
     this.areasService.loadAreas();
     this.buildingsService.loadBuildings();
     this.unitsService.loadUnits();
+    this.clientsService.loadClients();
+    this.contractsService.loadContracts();
   }
 }

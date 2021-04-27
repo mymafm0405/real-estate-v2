@@ -1,0 +1,17 @@
+.success {
+  color: green;
+}
+.error {
+  color: red;
+}
+.title {
+  color: green;
+}
+.unit-name {
+  color: #006db6;
+  font-size: 22px;
+  font-weight: bold;
+}
+input {
+  margin: 10px 0;
+}

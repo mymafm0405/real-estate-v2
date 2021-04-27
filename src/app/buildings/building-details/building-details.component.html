@@ -30,5 +30,6 @@
   [building]="building"
 ></app-add-unit-form>
 <div class="row" *ngIf="building !== undefined && area !== undefined">
-  <app-all-units [buildingId]="building.id"></app-all-units>
+  <app-all-units [buildingId]="building.id" *ngIf="!unitClicked"></app-all-units>
+  <app-add-contract-form [building]="building" [unit]="unitChoosed" *ngIf="unitClicked"></app-add-contract-form>
 </div>
