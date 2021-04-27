@@ -33,11 +33,12 @@ export class AddUnitFormComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.loading = true;
-    const { name, description, price } = this.addForm.value;
+    const { name, description, price, quantity } = this.addForm.value;
     const newUnit: Unit = new Unit(
       name,
       description,
       price,
+      quantity,
       this.buildingId,
       'empty'
     );

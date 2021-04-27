@@ -45,10 +45,11 @@ export class AddBuildingFormComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.loading = true;
-    const { name, description, areaId } = this.addForm.value;
+    const { name, description, areaId, unitsQuantity } = this.addForm.value;
     const newBuilding: Building = new Building(
       name,
       description,
+      unitsQuantity,
       areaId,
       'empty'
     );
