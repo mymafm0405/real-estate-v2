@@ -51,7 +51,7 @@ export class AddBuildingFormComponent implements OnInit, OnDestroy {
       description,
       unitsQuantity,
       areaId,
-      'empty'
+      'active'
     );
     this.buildingsService.addBuilding(newBuilding);
   }

@@ -14,7 +14,7 @@ export class AreasService {
   constructor(private generalService: GeneralService) {}
 
   getAreas() {
-    return this.areas;
+    return this.areas.filter((area) => area.status === 'active');
   }
 
   getAreaById(areaId: string) {

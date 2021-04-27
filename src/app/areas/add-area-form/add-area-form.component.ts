@@ -7,15 +7,15 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-add-area-form',
   templateUrl: './add-area-form.component.html',
-  styleUrls: ['./add-area-form.component.css']
+  styleUrls: ['./add-area-form.component.css'],
 })
 export class AddAreaFormComponent implements OnInit, OnDestroy {
-  @ViewChild('addForm', {static: false}) addForm: NgForm;
+  @ViewChild('addForm', { static: false }) addForm: NgForm;
   addingSub: Subscription;
   addingStatus: boolean;
   loading = false;
 
-  constructor(private areasService: AreasService) { }
+  constructor(private areasService: AreasService) {}
 
   ngOnInit(): void {
     this.addingSub = this.areasService.areaAddingStatus.subscribe(
@@ -28,18 +28,17 @@ export class AddAreaFormComponent implements OnInit, OnDestroy {
           this.addingStatus = undefined;
         }, 2500);
       }
-    )
+    );
   }
 
   onSubmit() {
     this.loading = true;
     const { name, address } = this.addForm.value;
-    const newArea: Area = new Area(name, address);
+    const newArea: Area = new Area(name, address, 'active');
     this.areasService.addArea(newArea);
   }
 
   ngOnDestroy() {
     this.addingSub.unsubscribe();
   }
-
 }

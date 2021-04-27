@@ -17,7 +17,7 @@ export class BuildingsService {
   ) {}
 
   getBuildings() {
-    return this.buildings;
+    return this.buildings.filter((building) => building.status === 'active');
   }
 
   getBuildingById(buildingId: string) {

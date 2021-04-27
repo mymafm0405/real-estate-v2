@@ -4,6 +4,7 @@ export class Building {
     public description: string,
     public unitsQuantity: number,
     public areaId: string,
+    public status: string,
     public id?: string
   ) {}
 }

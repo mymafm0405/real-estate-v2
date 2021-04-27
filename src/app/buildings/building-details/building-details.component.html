@@ -11,7 +11,11 @@
       <span class="remaining-number">{{ remainingUnits }}</span>
     </p>
     <button
-      class="btn btn-success"
+      [ngClass]="
+        createdUnits >= building.unitsQuantity
+          ? 'btn btn-danger'
+          : 'btn btn-success'
+      "
       (click)="onShowAddForm()"
       [disabled]="createdUnits === building.unitsQuantity"
     >
