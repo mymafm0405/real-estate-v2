@@ -7,5 +7,10 @@
   <h3 class="name">{{ building.name }}</h3>
   <h4>{{ area.name }}</h4>
   <p class="description">{{ building.description }}</p>
-  <p class="available">Available: <span class="quantity">{{ building.unitsQuantity ? building.unitsQuantity : '0' }}</span></p>
+  <p class="available">
+    Available:
+    <span [ngClass]="building.unitsQuantity > 0 ? 'quantity' : 'empty'">{{
+      remainingUnits
+    }}</span>
+  </p>
 </div>

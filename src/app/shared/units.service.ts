@@ -13,7 +13,7 @@ export class UnitsService {
   constructor(private generalService: GeneralService) {}
 
   getUnits() {
-    return this.units;
+    return this.units.filter((unit) => unit.status === 'active');
   }
   getUnitsByBuildingId(buildingId: string) {
     return this.units.filter((unit) => unit.buildingId === buildingId);

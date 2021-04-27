@@ -1,6 +1,8 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Building } from 'src/app/shared/building.model';
+import { BuildingsService } from 'src/app/shared/buildings.service';
 import { Unit } from 'src/app/shared/unit.model';
 import { UnitsService } from 'src/app/shared/units.service';
 
@@ -11,12 +13,20 @@ import { UnitsService } from 'src/app/shared/units.service';
 })
 export class AddUnitFormComponent implements OnInit, OnDestroy {
   @ViewChild('addForm', { static: false }) addForm: NgForm;
-  @Input() buildingId: string;
+  @Input() building: Building;
   addingStatus: boolean;
   loading = false;
   addingStatusSub: Subscription;
 
-  constructor(private unitsService: UnitsService) {}
+  addQuantity = 1;
+
+  unitsChangedSub: Subscription;
+  remainingToCreateUnits = 0;
+
+  constructor(
+    private unitsService: UnitsService,
+    private buildingsService: BuildingsService
+  ) {}
 
   ngOnInit(): void {
     this.addingStatusSub = this.unitsService.unitAddingStatus.subscribe(
@@ -29,20 +39,34 @@ export class AddUnitFormComponent implements OnInit, OnDestroy {
         });
       }
     );
+
+    this.countRemaining();
+
+    this.unitsChangedSub = this.unitsService.unitsChanged.subscribe(() => {
+      this.countRemaining();
+    });
   }
 
   onSubmit() {
     this.loading = true;
-    const { name, description, price, quantity } = this.addForm.value;
+    const { name, description, quantity } = this.addForm.value;
     const newUnit: Unit = new Unit(
       name,
       description,
-      price,
       quantity,
-      this.buildingId,
-      'empty'
+      this.building.id,
+      'empty',
+      'active'
     );
     this.unitsService.addUnit(newUnit);
+  }
+
+  countRemaining() {
+    if (this.building) {
+      this.remainingToCreateUnits =
+        this.building.unitsQuantity -
+        this.buildingsService.countUnitsCreatedByBuildingId(this.building.id);
+    }
   }
 
   ngOnDestroy() {

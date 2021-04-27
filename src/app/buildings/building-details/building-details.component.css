@@ -19,3 +19,15 @@ h3 {
 .btn-success {
   background-color: #70c200;
 }
+.remaining {
+  color: red;
+}
+.remaining-number {
+  font-weight: bold;
+  font-size: 18px;
+}
+.capacity {
+  color: #60a500;
+  font-size: 18px;
+  font-weight: bold;
+}

@@ -19,24 +19,21 @@
       />
       <input
         type="number"
-        name="price"
-        class="form-control"
-        placeholder="Unit price"
-        ngModel
-        required
-      />
-      <input
-        type="number"
         name="quantity"
         class="form-control"
         placeholder="Quantity"
-        ngModel
+        [(ngModel)]="addQuantity"
         required
       />
+      <p class="error" *ngIf="addQuantity > remainingToCreateUnits">
+        Only ({{ remainingToCreateUnits }}) unit/units are reamining to create
+      </p>
       <button
         class="btn btn-primary"
         type="submit"
-        [disabled]="addForm.invalid || loading"
+        [disabled]="
+          addForm.invalid || loading || addQuantity > remainingToCreateUnits
+        "
       >
         {{ loading ? "Wait.." : "Add unit" }}
       </button>

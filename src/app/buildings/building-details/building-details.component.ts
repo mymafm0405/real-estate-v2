@@ -5,6 +5,7 @@ import { Building } from './../../shared/building.model';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { UnitsService } from 'src/app/shared/units.service';
 
 @Component({
   selector: 'app-building-details',
@@ -14,32 +15,46 @@ import { Subscription } from 'rxjs';
 export class BuildingDetailsComponent implements OnInit, OnDestroy {
   building: Building;
   buildingsChangedSub: Subscription;
-  areasChangedSub: Subscription;
+  remainingUnits = 0;
+  createdUnits = 0;
 
   showAddForm = false;
 
   area: Area;
+  areasChangedSub: Subscription;
+
+  unitsChangedSub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private buildingsService: BuildingsService,
-    private areasService: AreasService
+    private areasService: AreasService,
+    private unitsService: UnitsService
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.building = this.buildingsService.getBuildingById(params.id);
       this.getArea();
+      this.getRemainingUnits();
+      this.getCreatedUnits();
 
       this.buildingsChangedSub = this.buildingsService.buildingsChanged.subscribe(
         () => {
           this.building = this.buildingsService.getBuildingById(params.id);
           this.getArea();
+          this.getRemainingUnits();
+          this.getCreatedUnits();
         }
       );
 
       this.areasChangedSub = this.areasService.areasChanged.subscribe(() => {
         this.getArea();
+      });
+
+      this.unitsChangedSub = this.unitsService.unitsChanged.subscribe(() => {
+        this.getRemainingUnits();
+        this.getCreatedUnits();
       });
     });
   }
@@ -54,8 +69,25 @@ export class BuildingDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+  getRemainingUnits() {
+    if (this.building) {
+      this.remainingUnits =
+        this.building.unitsQuantity -
+        this.buildingsService.countUnitsRentedByBuildingId(this.building.id);
+    }
+  }
+
+  getCreatedUnits() {
+    if (this.building) {
+      this.createdUnits = this.buildingsService.countUnitsCreatedByBuildingId(
+        this.building.id
+      );
+    }
+  }
+
   ngOnDestroy() {
     this.buildingsChangedSub.unsubscribe();
     this.areasChangedSub.unsubscribe();
+    this.unitsChangedSub.unsubscribe();
   }
 }

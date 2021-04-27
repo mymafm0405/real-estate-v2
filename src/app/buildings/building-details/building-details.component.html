@@ -5,14 +5,25 @@
       Location: <span class="location">{{ area.name }}</span>
     </h3>
     <h4 class="description">{{ building.description }}</h4>
-    <button class="btn btn-success" (click)="onShowAddForm()">
-      <span class="glyphicon glyphicon-plus"></span> Unit
+    <p class="capacity">Capacity: {{ building.unitsQuantity }} units</p>
+    <p class="remaining">
+      Not rented:
+      <span class="remaining-number">{{ remainingUnits }}</span>
+    </p>
+    <button
+      class="btn btn-success"
+      (click)="onShowAddForm()"
+      [disabled]="createdUnits === building.unitsQuantity"
+    >
+      {{
+        createdUnits >= building.unitsQuantity ? "All units created" : "+ Unit"
+      }}
     </button>
   </div>
 </div>
 <app-add-unit-form
   *ngIf="showAddForm"
-  [buildingId]="building.id"
+  [building]="building"
 ></app-add-unit-form>
 <div class="row" *ngIf="building !== undefined && area !== undefined">
   <app-all-units [buildingId]="building.id"></app-all-units>

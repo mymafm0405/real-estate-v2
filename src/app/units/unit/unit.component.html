@@ -1,7 +1,7 @@
 <div class="col-md-2 unit">
   <img src="../../../assets/images/unit2.png" width="60" height="50" />
   <h3>{{ unit.name }}</h3>
-  <h4>{{ unit.price }}</h4>
+  <p class="quantity">Quantity: {{ unit.quantity }}</p>
   <p class="description">{{ unit.description }}</p>
   <div *ngIf="unit.contractId === 'empty'">
     <button class="btn btn-success empty">

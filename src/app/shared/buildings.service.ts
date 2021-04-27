@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Building } from './building.model';
 import { GeneralService } from './general.service';
+import { UnitsService } from './units.service';
 
 @Injectable({ providedIn: 'root' })
 export class BuildingsService {
@@ -10,18 +11,39 @@ export class BuildingsService {
   buildingsChanged = new Subject<boolean>();
   buildingAddingStatus = new Subject<boolean>();
 
-  constructor(private generalService: GeneralService) {}
+  constructor(
+    private generalService: GeneralService,
+    private unitsService: UnitsService
+  ) {}
 
   getBuildings() {
     return this.buildings;
   }
 
   getBuildingById(buildingId: string) {
-    return this.buildings.find(building => building.id === buildingId);
+    return this.buildings.find((building) => building.id === buildingId);
   }
 
   getBuildingsByAreaId(areaId: string) {
-    return this.buildings.filter(building => building.areaId === areaId);
+    return this.buildings.filter((building) => building.areaId === areaId);
+  }
+
+  countUnitsRentedByBuildingId(buildingId: string) {
+    return this.unitsService
+      .getUnits()
+      .filter(
+        (unit) => unit.buildingId === buildingId && unit.contractId !== 'empty'
+      ).length;
+  }
+
+  countUnitsCreatedByBuildingId(buildingId: string) {
+    let count = 0;
+    for (let unit of this.unitsService
+      .getUnits()
+      .filter((unit) => unit.buildingId === buildingId)) {
+      count = count + unit.quantity;
+    }
+    return count;
   }
 
   addBuilding(newBuilding: Building) {
