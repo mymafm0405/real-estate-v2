@@ -1,6 +1,9 @@
 .success {
   color: green;
 }
+.available {
+  color: #ff4800;
+}
 .error {
   color: red;
 }

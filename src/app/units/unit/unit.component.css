@@ -6,7 +6,10 @@
   margin: 5px 5px;
   border: 1px dotted #666;
   padding: 5px;
-  min-height: 280px;
+  min-height: 320px;
+}
+img {
+  margin-top: 20px;
 }
 .unit:hover {
   background-color: #d4d4d4;
@@ -19,7 +22,7 @@ h4 {
 }
 .description {
   color: #7a7a7a;
-  height: 60px;
+  height: 40px;
 }
 .empty {
   background-color: #70c200;
@@ -34,6 +37,12 @@ h4 {
   border-radius: 7px;
   color: white;
 }
+.not-rented {
+  background-color: #70c200;
+  padding: 4px;
+  border-radius: 7px;
+  color: white;
+}
 .btn-danger {
   padding: 4px 8px;
 }
@@ -43,4 +52,11 @@ h4 {
 }
 .quantity {
   color: #60a500;
+}
+.available {
+  color: red;
+  margin-top: 15px;
+}
+.message {
+  color: red;
 }

@@ -56,7 +56,8 @@ export class AddUnitFormComponent implements OnInit, OnDestroy {
       quantity,
       this.building.id,
       'empty',
-      'active'
+      'active',
+      0
     );
     this.unitsService.addUnit(newUnit);
   }

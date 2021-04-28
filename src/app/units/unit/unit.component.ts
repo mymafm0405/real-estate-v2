@@ -9,12 +9,20 @@ import { Unit } from 'src/app/shared/unit.model';
 })
 export class UnitComponent implements OnInit {
   @Input() unit: Unit;
+  allRented = false;
 
   constructor(private unitsService: UnitsService) {}
 
   ngOnInit(): void {}
 
   onUnitClick() {
-    this.unitsService.unitIdClickedForNewContract.next(this.unit);
+    if (this.unit.numOfRented < this.unit.quantity) {
+      this.unitsService.unitIdClickedForNewContract.next(this.unit);
+    } else {
+      this.allRented = true;
+      setTimeout(() => {
+        this.allRented = false;
+      }, 2500);
+    }
   }
 }

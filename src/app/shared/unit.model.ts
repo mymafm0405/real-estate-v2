@@ -6,6 +6,7 @@ export class Unit {
     public buildingId: string,
     public contractId: string,
     public status: string,
+    public numOfRented: number,
     public id?: string
   ) {}
 }

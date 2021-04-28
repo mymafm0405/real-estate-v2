@@ -2,21 +2,99 @@
   <div class="col-md-12">
     <h2 class="title">Register a new contract</h2>
     <h4 class="unit-name">{{ unit.name }}</h4>
+    <p class="available">
+      You have {{ unit.quantity - unit.numOfRented }} unit to rent from this
+      sample
+    </p>
   </div>
 </div>
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
     <form (ngSubmit)="onSubmit()" #addForm="ngForm">
-      <input type="text" name="clientName" class="form-control" placeholder="Client Name" ngModel required>
-      <input type="number" name="qId" class="form-control" placeholder="Qatar ID" ngModel required>
-      <input type="number" name="phone" class="form-control" placeholder="Phone number" ngModel required>
-      <input type="date" name="startDate" class="form-control" ngModel required>
-      <input type="number" name="price" class="form-control" placeholder="Monthly price" ngModel required>
-      <input type="number" name="months" class="form-control" placeholder="Number of months" ngModel required>
-      <input type="number" name="quantity" class="form-control" placeholder="Units Quantity" ngModel required>
-      <button class="btn btn-primary" [disabled]="addForm.invalid">Save contract</button>
-      <h4 class="success" *ngIf="addingContractStatus !== undefined && addingContractStatus">Adding contract success!</h4>
-      <h4 class="error" *ngIf="addingContractStatus !== undefined && !addingContractStatus">Error happened!</h4>
+      <input
+        type="text"
+        name="clientName"
+        class="form-control"
+        placeholder="Client Name"
+        ngModel
+        required
+      />
+      <input
+        type="number"
+        name="qId"
+        class="form-control"
+        placeholder="Qatar ID"
+        ngModel
+        required
+      />
+      <input
+        type="number"
+        name="phone"
+        class="form-control"
+        placeholder="Phone number"
+        ngModel
+        required
+      />
+      <input
+        type="date"
+        name="startDate"
+        class="form-control"
+        ngModel
+        required
+      />
+      <input
+        type="number"
+        name="price"
+        class="form-control"
+        placeholder="Monthly price"
+        ngModel
+        required
+      />
+      <input
+        type="number"
+        name="months"
+        class="form-control"
+        placeholder="Number of months"
+        ngModel
+        required
+      />
+      <input
+        type="number"
+        name="quantity"
+        class="form-control"
+        placeholder="Units Quantity"
+        [(ngModel)]="quantity"
+        required
+      />
+      <h4 class="error" *ngIf="quantity > unit.quantity - unit.numOfRented">
+        You have only ( {{ unit.quantity - unit.numOfRented }} ) units available
+        to rent!
+      </h4>
+      <h4 class="error" *ngIf="quantity <= 0">
+        You can not rent this quantity, check your quantity!
+      </h4>
+      <button
+        class="btn btn-primary"
+        [disabled]="
+          addForm.invalid ||
+          quantity > unit.quantity - unit.numOfRented ||
+          quantity <= 0
+        "
+      >
+        Save contract
+      </button>
+      <h4
+        class="success"
+        *ngIf="addingContractStatus !== undefined && addingContractStatus"
+      >
+        Adding contract success!
+      </h4>
+      <h4
+        class="error"
+        *ngIf="addingContractStatus !== undefined && !addingContractStatus"
+      >
+        Error happened!
+      </h4>
     </form>
   </div>
 </div>

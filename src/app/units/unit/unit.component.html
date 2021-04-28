@@ -1,18 +1,19 @@
-<div class="col-md-2 unit" (click)="onUnitClick()">
+<div class="col-md-3 unit" (click)="onUnitClick()">
+  <p class="message" *ngIf="allRented">No more units from this sample</p>
+  <div *ngIf="unit.quantity === unit.numOfRented">
+    <span class="rented"> All-Rented </span>
+  </div>
+  <div *ngIf="unit.quantity > unit.numOfRented">
+    <span class="not-rented"> Available </span>
+  </div>
   <img src="../../../assets/images/unit2.png" width="60" height="50" />
   <h3>{{ unit.name }}</h3>
-  <p class="quantity">Quantity: {{ unit.quantity }}</p>
+  <p class="quantity">Total: {{ unit.quantity }}</p>
   <p class="description">{{ unit.description }}</p>
-  <div *ngIf="unit.contractId === 'empty'">
-    <button class="btn btn-success empty">
-      <span class="glyphicon glyphicon-plus">New</span>
-    </button>
-    <button class="btn btn-danger">
-      <span class="glyphicon glyphicon-remove"></span>
-    </button>
-  </div>
-  <div *ngIf="unit.contractId !== 'empty'">
-    <span class="rented" *ngIf="unit.contractId !== 'empty'"> Rented </span>
-    <p class="end">End on: 31-05-2021</p>
-  </div>
+  <button class="btn btn-danger" [disabled]="unit.numOfRented > 0">
+    <span class="glyphicon glyphicon-remove"></span>
+  </button>
+  <p class="available">
+    Available to rent: {{ unit.quantity - unit.numOfRented }}
+  </p>
 </div>

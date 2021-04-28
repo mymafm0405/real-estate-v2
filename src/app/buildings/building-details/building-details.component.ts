@@ -67,7 +67,7 @@ export class BuildingDetailsComponent implements OnInit, OnDestroy {
           this.unitChoosed = unit;
           this.unitClicked = true;
         }
-      )
+      );
     });
   }
 

@@ -46,11 +46,17 @@ export class UnitsService {
     );
   }
 
-  changeUnitContractId(unitId: string, contractId: string) {
-    this.generalService.patchCurrentData('units', unitId, { contractId }).subscribe(
-      () => {
-        console.log('unit updated');
-      }
-    )
+  changeUnitRented(unitId: string, quantity: number) {
+    const newNumOfRented =
+      this.units.find((unit) => unit.id === unitId).numOfRented + quantity;
+    this.generalService
+      .patchCurrentData('units', unitId, { numOfRented: newNumOfRented })
+      .subscribe(() => {
+        console.log('unit numofrented updated');
+        this.units.find(
+          (unit) => unit.id === unitId
+        ).numOfRented = newNumOfRented;
+        this.unitsChanged.next(true);
+      });
   }
 }

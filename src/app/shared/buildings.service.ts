@@ -29,11 +29,14 @@ export class BuildingsService {
   }
 
   countUnitsRentedByBuildingId(buildingId: string) {
-    return this.unitsService
+    let totalRentedForThisBuilding = 0;
+    for (let currentUnit of this.unitsService
       .getUnits()
-      .filter(
-        (unit) => unit.buildingId === buildingId && unit.contractId !== 'empty'
-      ).length;
+      .filter((unit) => unit.buildingId === buildingId)) {
+      totalRentedForThisBuilding =
+        totalRentedForThisBuilding + currentUnit.numOfRented;
+    }
+    return totalRentedForThisBuilding;
   }
 
   countUnitsCreatedByBuildingId(buildingId: string) {
