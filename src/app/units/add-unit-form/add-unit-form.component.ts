@@ -36,7 +36,7 @@ export class AddUnitFormComponent implements OnInit, OnDestroy {
         this.addingStatus = status;
         setTimeout(() => {
           this.addingStatus = undefined;
-        });
+        }, 2500);
       }
     );
 

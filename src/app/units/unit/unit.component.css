@@ -6,7 +6,10 @@
   margin: 5px 5px;
   border: 1px dotted #666;
   padding: 5px;
-  min-height: 320px;
+  min-height: 350px;
+}
+.name {
+  height: 60px;
 }
 img {
   margin-top: 20px;

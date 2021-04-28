@@ -50,10 +50,10 @@ export class AddContractFormComponent implements OnInit, OnDestroy {
 
         setTimeout(() => {
           this.addingContractStatus = undefined;
+          if (status) {
+            this.unitsService.unitUnClicked.next(true);
+          }
         }, 2500);
-
-        if (status) {
-        }
       }
     );
   }

@@ -10,6 +10,7 @@ export class UnitsService {
   unitsChanged = new Subject<boolean>();
   unitAddingStatus = new Subject<boolean>();
   unitIdClickedForNewContract = new Subject<Unit>();
+  unitUnClicked = new Subject<boolean>();
 
   constructor(private generalService: GeneralService) {}
 

@@ -30,6 +30,8 @@ export class BuildingDetailsComponent implements OnInit, OnDestroy {
   unitClicked = false;
   unitChoosed: Unit;
 
+  unitUnClickedSub: Subscription;
+
   constructor(
     private route: ActivatedRoute,
     private buildingsService: BuildingsService,
@@ -68,6 +70,13 @@ export class BuildingDetailsComponent implements OnInit, OnDestroy {
           this.unitClicked = true;
         }
       );
+
+      this.unitUnClickedSub = this.unitsService.unitUnClicked.subscribe(
+        (status: boolean) => {
+          console.log(status);
+          this.unitClicked = !status;
+        }
+      );
     });
   }
 
@@ -101,5 +110,7 @@ export class BuildingDetailsComponent implements OnInit, OnDestroy {
     this.buildingsChangedSub.unsubscribe();
     this.areasChangedSub.unsubscribe();
     this.unitsChangedSub.unsubscribe();
+    this.unitIdClickedForNewContractSub.unsubscribe();
+    this.unitUnClickedSub.unsubscribe();
   }
 }

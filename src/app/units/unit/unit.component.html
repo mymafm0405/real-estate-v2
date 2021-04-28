@@ -7,7 +7,7 @@
     <span class="not-rented"> Available </span>
   </div>
   <img src="../../../assets/images/unit2.png" width="60" height="50" />
-  <h3>{{ unit.name }}</h3>
+  <h3 class="name">{{ unit.name }}</h3>
   <p class="quantity">Total: {{ unit.quantity }}</p>
   <p class="description">{{ unit.description }}</p>
   <button class="btn btn-danger" [disabled]="unit.numOfRented > 0">
