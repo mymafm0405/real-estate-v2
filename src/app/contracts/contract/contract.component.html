@@ -1,1 +1,14 @@
-<p>contract works!</p>
+<div class="col-md-3 contract">
+  <h4 [ngClass]="contract.contractType === 'company' ? 'contract-type type-company' : 'contract-type type-personal'">
+    <span class="glyphicon glyphicon-list-alt"></span> {{ contract.contractType === 'personal' ? 'Personal' : 'Company'
+    }}</h4>
+  <h4 class="company-name" *ngIf="contract.contractType && company && contract.contractType === 'company'">{{
+    company.name }}</h4>
+  <h3 class="unit" *ngIf="unit">{{ unit.name }}</h3>
+  <h4 class="building-area" *ngIf="building && area"><span>{{ building.name }}</span> - <span>{{ area.name }}</span></h4>
+  <h4 class="client" *ngIf="client">{{ client.name }}</h4>
+  <h4 class="client" *ngIf="client">{{ client.phone }}</h4>
+  <h4><button class="btn btn-default">Add payment</button></h4>
+  <h4 class="expire-on">Expire on: 00 - 00 - 0000</h4>
+  <h4 class="expired">Expired</h4>
+</div>

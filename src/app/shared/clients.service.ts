@@ -28,6 +28,10 @@ export class ClientsService {
     )
   }
 
+  getClientById(clientId: string) {
+    return this.clients.find(client => client.id === clientId);
+  }
+
   checkClientExist(qId: number, newClient: Client) {
     if (this.clients.find(client => client.qId === qId)) {
       this.newClientIdChanged.next(this.clients.find(client => client.qId === qId).id);

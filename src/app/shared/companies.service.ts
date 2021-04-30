@@ -28,6 +28,10 @@ export class CompaniesService {
       )
   }
 
+  getCompanyById(companyId: string) {
+    return this.companies.find(company => company.id === companyId);
+  }
+
   checkExistCompany(newCompany: Company) {
     const foundCompany = this.companies.find(company => company.crNo === newCompany.crNo);
     if (foundCompany) {

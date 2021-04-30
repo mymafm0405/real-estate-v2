@@ -1,0 +1,60 @@
+.contract {
+  text-align: center;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  border: 3px solid #CCC;
+  padding: 0;
+  min-height: 360px;
+}
+.contract:hover {
+  background-color: #d4d4d4;
+}
+.contract-type {
+  background-color: #666;
+  margin: 0;
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: white;
+}
+.type-company {
+  background-color: #666;
+}
+.type-personal {
+  background-color: #3c6800;
+}
+.company-name {
+  color: #006db6;
+  font-weight: bold;
+  border-bottom: 1px dotted #333;
+  padding: 10px;
+  margin: 0;
+}
+.unit {
+  color: #900;
+  margin: 10px;
+  font-size: 22px;
+}
+.building-area {
+  background-color: #e4e4e4;
+  margin: 0;
+  padding: 10px;
+}
+.building-area span{
+  margin: 0 10px;
+  font-size: 16px;
+}
+.client {
+  color: #666;
+  font-size: 16px;
+  margin: 20px 0;
+}
+.expired {
+  background-color: #bd7878;
+  color: white;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin: 0;
+  padding: 0;
+}

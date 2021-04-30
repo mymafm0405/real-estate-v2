@@ -21,6 +21,10 @@ export class UnitsService {
     return this.units.filter((unit) => unit.buildingId === buildingId);
   }
 
+  getUnitById(unitId: string) {
+    return this.units.find(unit => unit.id === unitId);
+  }
+
   addUnit(newUnit: Unit) {
     this.generalService.addNewData('units', newUnit).subscribe(
       (res: { name: string }) => {
