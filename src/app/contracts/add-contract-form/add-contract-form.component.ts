@@ -1,3 +1,5 @@
+import { CompaniesService } from './../../shared/companies.service';
+import { Company } from './../../shared/company.model';
 import { ContractsService } from './../../shared/contracts.service';
 import { Client } from './../../shared/client.model';
 import { Contract } from './../../shared/contract.model';
@@ -22,6 +24,7 @@ export class AddContractFormComponent implements OnInit, OnDestroy {
 
   newClientIdChangedSub: Subscription;
   addingContractSub: Subscription;
+  newCompanyIdSub: Subscription;
 
   addingContractStatus: boolean;
 
@@ -29,19 +32,42 @@ export class AddContractFormComponent implements OnInit, OnDestroy {
   newClient: Client;
   clientId: string;
 
+  newCompany: Company;
+
+  contractType = '';
+
   constructor(
     private clientsService: ClientsService,
     private contractsService: ContractsService,
-    private unitsService: UnitsService
-  ) {}
+    private unitsService: UnitsService,
+    private companiesService: CompaniesService
+  ) { }
 
   ngOnInit(): void {
+
     this.newClientIdChangedSub = this.clientsService.newClientIdChanged.subscribe(
       (newClientId: string) => {
         this.newContract.clientId = newClientId;
-        this.contractsService.addContract(this.newContract);
+        console.log('client id updated');
+        if (this.newContract.contractType === 'personal') {
+          console.log('personal only');
+          this.contractsService.addContract(this.newContract);
+        } else if (this.newContract.contractType === 'company') {
+
+          this.companiesService.checkExistCompany(this.newCompany);
+
+        }
       }
     );
+
+    this.newCompanyIdSub = this.companiesService.newCompanyId.subscribe(
+      (companyId: string) => {
+        this.newCompany.id = companyId;
+        this.newContract.companyId = this.newCompany.id;
+        this.contractsService.addContract(this.newContract);
+        console.log('company type and company id updated');
+      }
+    )
 
     this.addingContractSub = this.contractsService.contractAddingStatus.subscribe(
       (status: boolean) => {
@@ -68,8 +94,16 @@ export class AddContractFormComponent implements OnInit, OnDestroy {
       price,
       months,
       quantity,
+      contractType
     } = this.addForm.value;
+
     this.newClient = new Client(clientName, qId, phone);
+
+    if (contractType === 'company') {
+      const { company, crNo } = this.addForm.value;
+      this.newCompany = new Company(company, crNo);
+    }
+
     this.newContract = new Contract(
       this.building.id,
       this.unit.id,
@@ -78,12 +112,20 @@ export class AddContractFormComponent implements OnInit, OnDestroy {
       price,
       months,
       'active',
-      quantity
+      quantity,
+      contractType
     );
     this.clientsService.checkClientExist(qId, this.newClient);
   }
 
+  onTypeChange() {
+    this.contractType = this.addForm.value.contractType;
+  }
+
   ngOnDestroy() {
     this.newClientIdChangedSub.unsubscribe();
+    if (this.newCompanyIdSub) {
+      this.newCompanyIdSub.unsubscribe();
+    }
   }
 }

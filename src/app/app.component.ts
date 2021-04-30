@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { BuildingsService } from './shared/buildings.service';
 import { UnitsService } from './shared/units.service';
 import { ClientsService } from './shared/clients.service';
+import { CompaniesService } from './shared/companies.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ export class AppComponent implements OnInit {
     private buildingsService: BuildingsService,
     private unitsService: UnitsService,
     private contractsService: ContractsService,
-    private clientsService: ClientsService
+    private clientsService: ClientsService,
+    private companiesService: CompaniesService
   ) {}
 
   ngOnInit() {
@@ -27,5 +29,6 @@ export class AppComponent implements OnInit {
     this.unitsService.loadUnits();
     this.clientsService.loadClients();
     this.contractsService.loadContracts();
+    this.companiesService.loadCompanies();
   }
 }

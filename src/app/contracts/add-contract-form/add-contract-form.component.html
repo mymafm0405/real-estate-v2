@@ -2,6 +2,7 @@
   <div class="col-md-12">
     <h2 class="title">Register a new contract</h2>
     <h4 class="unit-name">{{ unit.name }}</h4>
+    <p>{{ unit.description }}</p>
     <p class="available">
       You have {{ unit.quantity - unit.numOfRented }} unit to rent from this
       sample
@@ -50,6 +51,13 @@
         ngModel
         required
       />
+      <h4 class="type">Personal / Company:</h4>
+      <select name="contractType" class="form-control" (change)="onTypeChange()" ngModel required>
+        <option value="personal" selected>Personal</option>
+        <option value="company">Company</option>
+      </select>
+      <input type="text" name="company" class="form-control" placeholder="Company name" ngModel required *ngIf="contractType === 'company'">
+      <input type="number" name="crNo" class="form-control" placeholder="Cr.No" ngModel required *ngIf="contractType === 'company'">
       <input
         type="number"
         name="months"
