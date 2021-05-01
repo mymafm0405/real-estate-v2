@@ -41,10 +41,9 @@ export class AddContractFormComponent implements OnInit, OnDestroy {
     private contractsService: ContractsService,
     private unitsService: UnitsService,
     private companiesService: CompaniesService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.newClientIdChangedSub = this.clientsService.newClientIdChanged.subscribe(
       (newClientId: string) => {
         this.newContract.clientId = newClientId;
@@ -53,9 +52,7 @@ export class AddContractFormComponent implements OnInit, OnDestroy {
           console.log('personal only');
           this.contractsService.addContract(this.newContract);
         } else if (this.newContract.contractType === 'company') {
-
           this.companiesService.checkExistCompany(this.newCompany);
-
         }
       }
     );
@@ -67,7 +64,7 @@ export class AddContractFormComponent implements OnInit, OnDestroy {
         this.contractsService.addContract(this.newContract);
         console.log('company type and company id updated');
       }
-    )
+    );
 
     this.addingContractSub = this.contractsService.contractAddingStatus.subscribe(
       (status: boolean) => {
@@ -94,7 +91,7 @@ export class AddContractFormComponent implements OnInit, OnDestroy {
       price,
       months,
       quantity,
-      contractType
+      contractType,
     } = this.addForm.value;
 
     this.newClient = new Client(clientName, qId, phone);

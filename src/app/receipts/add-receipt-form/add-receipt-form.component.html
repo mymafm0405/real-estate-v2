@@ -1,1 +1,29 @@
-<p>add-receipt-form works!</p>
+<form (ngSubmit)="onSubmit()" class="form-inline" #addForm="ngForm">
+  <div class="form-group">
+    <input
+      type="number"
+      name="amount"
+      class="form-control"
+      placeholder="Amount"
+      [(ngModel)]="amount"
+      required
+    />
+  </div>
+  <button
+    class="btn btn-success"
+    type="submit"
+    [disabled]="addForm.invalid || amount > totalRemaining || amount <= 0"
+  >
+    Save
+  </button>
+  <p class="error" *ngIf="amount && amount <= 0">Amount is invalid</p>
+  <p class="error" *ngIf="amount > totalRemaining">
+    Amount is more than remaining!
+  </p>
+  <p class="success" *ngIf="addingStatus !== undefined && addingStatus">
+    Payment success!
+  </p>
+  <p class="error" *ngIf="addingStatus !== undefined && !addingStatus">
+    Error happened!
+  </p>
+</form>

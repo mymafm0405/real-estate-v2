@@ -1,14 +1,57 @@
 <div class="col-md-3 contract">
-  <h4 [ngClass]="contract.contractType === 'company' ? 'contract-type type-company' : 'contract-type type-personal'">
-    <span class="glyphicon glyphicon-list-alt"></span> {{ contract.contractType === 'personal' ? 'Personal' : 'Company'
-    }}</h4>
-  <h4 class="company-name" *ngIf="contract.contractType && company && contract.contractType === 'company'">{{
-    company.name }}</h4>
+  <h4
+    [ngClass]="
+      contract.contractType === 'company'
+        ? 'contract-type type-company'
+        : 'contract-type type-personal'
+    "
+  >
+    <span class="glyphicon glyphicon-list-alt"></span>
+    {{ contract.contractType === "personal" ? "Personal" : "Company" }}
+  </h4>
+  <h4>
+    Monthly: <span class="price">{{ contract.price }}</span>
+  </h4>
+  <h4
+    class="company-name"
+    *ngIf="
+      contract.contractType && company && contract.contractType === 'company'
+    "
+  >
+    {{ company.name }}
+  </h4>
+  <h4
+    class="personal"
+    *ngIf="contract.contractType && contract.contractType === 'personal'"
+  >
+    Personal
+  </h4>
   <h3 class="unit" *ngIf="unit">{{ unit.name }}</h3>
-  <h4 class="building-area" *ngIf="building && area"><span>{{ building.name }}</span> - <span>{{ area.name }}</span></h4>
+  <h4 class="building-area" *ngIf="building && area">
+    <span>{{ building.name }}</span> - <span>{{ area.name }}</span>
+  </h4>
   <h4 class="client" *ngIf="client">{{ client.name }}</h4>
   <h4 class="client" *ngIf="client">{{ client.phone }}</h4>
-  <h4><button class="btn btn-default">Add payment</button></h4>
-  <h4 class="expire-on">Expire on: 00 - 00 - 0000</h4>
-  <h4 class="expired">Expired</h4>
+  <h4>
+    <button class="btn btn-default" (click)="addClicked()">
+      {{ !paymentClicked ? "Add payment" : "Hide payment" }}
+    </button>
+  </h4>
+  <app-add-receipt-form
+    *ngIf="paymentClicked"
+    [totalRemaining]="totalRemaining"
+    [contractId]="contract.id"
+    [unitId]="contract.unitId"
+    [buildingId]="contract.buildingId"
+    [clientId]="contract.clientId"
+  ></app-add-receipt-form>
+  <h4>
+    <span class="required">{{ totalRequired }}</span
+    ><span class="payments">{{ totalPayments }}</span
+    ><span class="remaining">{{ totalRemaining }}</span>
+  </h4>
+  <p class="expire-on" *ngIf="!expired">
+    <span class="expire-title">Expire on:</span> 00 - 00 - 0000
+  </p>
+  <h4 class="expired" *ngIf="expired">Expired</h4>
 </div>
