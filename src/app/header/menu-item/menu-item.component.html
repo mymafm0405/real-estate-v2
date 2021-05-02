@@ -3,6 +3,13 @@
   [routerLink]="menuItem.path"
   routerLinkActive="{{ menuItem.type === 'sub' ? 'active-sub' : 'active' }}"
 >
-  <h4><span [class]="menuItem.icon"></span></h4>
+  <h4>
+    <span [class]="menuItem.icon"></span
+    ><span
+      class="expired"
+      *ngIf="menuItem.name === 'Notifications' && numOfExpiredContracts > 0"
+      >{{ numOfExpiredContracts }}</span
+    >
+  </h4>
   <h4>{{ menuItem.name }}</h4>
 </div>

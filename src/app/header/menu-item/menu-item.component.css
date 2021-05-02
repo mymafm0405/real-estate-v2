@@ -30,3 +30,10 @@
   background-color: #5f5555;
   color: #99ff56;
 }
+.expired {
+  background-color: red;
+  color: white;
+  padding: 1px 4px;
+  border-radius: 5px;
+  margin-left: 10px;
+}

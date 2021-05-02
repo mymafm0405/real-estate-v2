@@ -11,6 +11,7 @@ export class ContractsService {
   contracts: Contract[] = [];
   contractsChanged = new Subject<boolean>();
   contractAddingStatus = new Subject<boolean>();
+  expiredContracts: Contract[] = [];
 
   constructor(
     private generalService: GeneralService,
@@ -21,6 +22,10 @@ export class ContractsService {
 
   getContracts() {
     return this.contracts.filter((contract) => contract.status === 'active');
+  }
+
+  getExpiredContracts() {
+    return this.expiredContracts;
   }
 
   findContracts(search: string) {
@@ -109,5 +114,25 @@ export class ContractsService {
         console.log(error);
       }
     );
+  }
+
+  getTodayDate() {
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = today.getFullYear();
+
+    const currentDate = yyyy + '-' + mm + '-' + dd;
+    return currentDate;
+  }
+
+  checkExpiredContracts() {
+    const todayTimestamp = new Date(this.getTodayDate()).getTime();
+    for (let cont of this.getContracts()) {
+      const expiredTime = new Date(cont.startDate).setMonth(+cont.months);
+      if (expiredTime < todayTimestamp) {
+        this.expiredContracts.push(cont);
+      }
+    }
   }
 }
