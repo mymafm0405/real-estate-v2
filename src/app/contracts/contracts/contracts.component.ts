@@ -4,7 +4,7 @@ import { MenuItem } from 'src/app/shared/menu-item.model';
 @Component({
   selector: 'app-contracts',
   templateUrl: './contracts.component.html',
-  styleUrls: ['./contracts.component.css']
+  styleUrls: ['./contracts.component.css'],
 })
 export class ContractsComponent implements OnInit {
   contractsMenu: MenuItem[] = [
@@ -14,10 +14,14 @@ export class ContractsComponent implements OnInit {
       'glyphicon glyphicon-list-alt',
       'sub'
     ),
+    new MenuItem(
+      'Find a contract',
+      'find-contract',
+      'glyphicon glyphicon-search',
+      'sub'
+    ),
   ];
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

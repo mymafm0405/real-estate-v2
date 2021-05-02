@@ -18,7 +18,7 @@ export class AddReceiptFormComponent implements OnInit, OnDestroy {
   @Input() buildingId: string;
   amount: number;
   serial: number;
-  date: string;
+  creationDate: string;
   status = 'active';
   addingStatus: boolean;
 
@@ -41,17 +41,20 @@ export class AddReceiptFormComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.amount = this.addForm.value.amount;
+    const { date, details } = this.addForm.value;
     this.serial = this.receiptsService.getReceipts().length + 1;
-    this.date = this.receiptsService.getTodayDate();
+    this.creationDate = this.receiptsService.getTodayDate();
 
     const newReceipt: Receipt = new Receipt(
       this.serial,
-      this.date,
+      this.creationDate,
       this.contractId,
       this.clientId,
       this.unitId,
       this.buildingId,
       this.amount,
+      date,
+      details,
       this.status
     );
 

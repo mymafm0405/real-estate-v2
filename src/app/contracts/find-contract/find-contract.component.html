@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2>
+      Find a contract by (<span class="find-by"
+        >Client name, Phone or Company</span
+      >)
+    </h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
+      <input
+        type="search"
+        name="search"
+        class="form-control"
+        placeholder="Find by name, phone or company!"
+        ngModel
+        required
+        (input)="onChange()"
+      />
+      <button
+        class="btn btn-danger"
+        type="submit"
+        [disabled]="searchForm.invalid"
+      >
+        Search
+      </button>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12" *ngIf="foundContracts.length === 0 && submitted">
+    <h3>No contracts found</h3>
+  </div>
+  <app-contract
+    *ngFor="let contract of foundContracts"
+    [contract]="contract"
+  ></app-contract>
+</div>

@@ -1,4 +1,4 @@
-<div class="col-md-3 contract">
+<div class="col-md-4 contract">
   <h4
     [ngClass]="
       contract.contractType === 'company'
@@ -46,9 +46,9 @@
     [clientId]="contract.clientId"
   ></app-add-receipt-form>
   <h4>
-    <span class="required">{{ totalRequired }}</span
-    ><span class="payments">{{ totalPayments }}</span
-    ><span class="remaining">{{ totalRemaining }}</span>
+    <span class="required">{{ totalRequired }} QR</span
+    ><span class="payments">{{ totalPayments }} QR</span
+    ><span class="remaining">{{ totalRemaining }} QR</span>
   </h4>
   <p class="expire-on" *ngIf="!expired">
     <span class="expire-title">Expire on:</span> 00 - 00 - 0000

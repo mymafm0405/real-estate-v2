@@ -1,9 +1,13 @@
 .error {
   color: red;
 }
-input {
-  width: 20px;
+.form-control {
+  width: 100px;
+  margin: 0 2px;
 }
 .success {
   color: green;
+}
+.btn {
+  padding: 2px;
 }

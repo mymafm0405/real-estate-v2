@@ -1,14 +1,21 @@
 <form (ngSubmit)="onSubmit()" class="form-inline" #addForm="ngForm">
-  <div class="form-group">
-    <input
-      type="number"
-      name="amount"
-      class="form-control"
-      placeholder="Amount"
-      [(ngModel)]="amount"
-      required
-    />
-  </div>
+  <input
+    type="number"
+    name="amount"
+    class="form-control"
+    placeholder="Amount"
+    [(ngModel)]="amount"
+    required
+  />
+  <input type="date" name="date" class="form-control" ngModel required />
+  <input
+    type="text"
+    name="details"
+    class="form-control"
+    placeholder="Details"
+    ngModel
+    required
+  />
   <button
     class="btn btn-success"
     type="submit"

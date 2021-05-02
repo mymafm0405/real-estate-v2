@@ -29,6 +29,7 @@ import { AddUnitFormComponent } from './units/add-unit-form/add-unit-form.compon
 import { UnitComponent } from './units/unit/unit.component';
 import { AllUnitsComponent } from './units/all-units/all-units.component';
 import { ContractsComponent } from './contracts/contracts/contracts.component';
+import { FindContractComponent } from './contracts/find-contract/find-contract.component';
 
 const appRoutes: Routes = [
   {
@@ -48,9 +49,14 @@ const appRoutes: Routes = [
       { path: 'building/:id', component: BuildingDetailsComponent },
     ],
   },
-  { path: 'contracts', component: ContractsComponent, children: [
-    {path: 'view-contracts', component: AllContractsComponent}
-  ]}
+  {
+    path: 'contracts',
+    component: ContractsComponent,
+    children: [
+      { path: 'view-contracts', component: AllContractsComponent },
+      { path: 'find-contract', component: FindContractComponent },
+    ],
+  },
 ];
 
 @NgModule({
@@ -80,6 +86,7 @@ const appRoutes: Routes = [
     UnitComponent,
     AllUnitsComponent,
     ContractsComponent,
+    FindContractComponent,
   ],
   imports: [
     BrowserModule,
