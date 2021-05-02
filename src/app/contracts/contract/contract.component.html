@@ -33,7 +33,7 @@
   <h4 class="client" *ngIf="client">{{ client.name }}</h4>
   <h4 class="client" *ngIf="client">{{ client.phone }}</h4>
   <h4>
-    <button class="btn btn-default" (click)="addClicked()">
+    <button class="btn btn-primary" (click)="addClicked()">
       {{ !paymentClicked ? "Add payment" : "Hide payment" }}
     </button>
   </h4>
@@ -46,12 +46,12 @@
     [clientId]="contract.clientId"
   ></app-add-receipt-form>
   <h4>
-    <span class="required">{{ totalRequired }} QR</span
-    ><span class="payments">{{ totalPayments }} QR</span
-    ><span class="remaining">{{ totalRemaining }} QR</span>
+    <span class="required">Required<br><br>{{ totalRequired }} QR</span
+    ><span class="payments">Paid<br><br>{{ totalPayments }} QR</span
+    ><span class="remaining">Remaining<br><br>{{ totalRemaining }} QR</span>
   </h4>
   <p class="expire-on" *ngIf="!expired">
-    <span class="expire-title">Expire on:</span> 00 - 00 - 0000
+    <span class="expire-title">Expire on:</span> {{expiredDate}}
   </p>
   <h4 class="expired" *ngIf="expired">Expired</h4>
 </div>

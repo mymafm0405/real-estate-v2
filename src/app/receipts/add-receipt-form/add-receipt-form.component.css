@@ -2,12 +2,13 @@
   color: red;
 }
 .form-control {
-  width: 100px;
-  margin: 0 2px;
+  width: 195px;
+  margin: 2px 2px;
 }
 .success {
   color: green;
 }
 .btn {
   padding: 2px;
+  margin-left: 2px;
 }

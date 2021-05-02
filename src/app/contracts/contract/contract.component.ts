@@ -1,3 +1,4 @@
+import { ContractsService } from 'src/app/shared/contracts.service';
 import { Subscription } from 'rxjs';
 import { CompaniesService } from './../../shared/companies.service';
 import { UnitsService } from './../../shared/units.service';
@@ -30,6 +31,7 @@ export class ContractComponent implements OnInit, OnDestroy {
   totalRequired = 0;
   totalRemaining = 0;
   paymentClicked = false;
+  expiredDate:any;
 
   areasChangedSub: Subscription;
   buildingsChangedSub: Subscription;
@@ -44,10 +46,13 @@ export class ContractComponent implements OnInit, OnDestroy {
     private unitsService: UnitsService,
     private companiesService: CompaniesService,
     private clientsService: ClientsService,
-    private receiptsService: ReceiptsService
+    private receiptsService: ReceiptsService,
+    private contractsService: ContractsService
   ) {}
 
   ngOnInit(): void {
+    this.getExpireDate();
+
     this.building = this.buildingsService.getBuildingById(
       this.contract.buildingId
     );
@@ -122,6 +127,15 @@ export class ContractComponent implements OnInit, OnDestroy {
 
   addClicked() {
     this.paymentClicked = !this.paymentClicked;
+  }
+
+  getExpireDate() {
+    const start = new Date(this.contract.startDate);
+    const expired = start.setMonth(start.getMonth() + this.contract.months);
+    this.expiredDate = new Date(expired).toDateString();
+    if (this.contractsService.getExpiredContracts().find(cont => cont.id === this.contract.id)) {
+      this.expired = true;
+    }
   }
 
   ngOnDestroy() {
