@@ -51,7 +51,7 @@
     ><span class="remaining">Remaining<br><br>{{ totalRemaining }} QR</span>
   </h4>
   <p class="expire-on" *ngIf="!expired">
-    <span class="expire-title">Expire on:</span> {{expiredDate}}
+    <span class="valid-title">Valid unitl:</span> {{expiredDate}}
   </p>
-  <h4 class="expired" *ngIf="expired">Expired</h4>
+  <h4 class="expired" *ngIf="expired">Expired <br> <span class="small-date">{{expiredDate}}</span></h4>
 </div>
