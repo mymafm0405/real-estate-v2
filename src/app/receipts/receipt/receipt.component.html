@@ -1,1 +1,22 @@
-<p>receipt works!</p>
+<div [ngClass]="indexNumber % 2 === 0 ? 'row light-back' : 'row dark-back'">
+  <div class="col-md-1">
+    <h4>{{ receipt.serial }}</h4>
+  </div>
+  <div class="col-md-2">
+    <h4>{{ receipt.date }}</h4>
+  </div>
+  <div class="col-md-3">
+    <h4>
+      {{ contract.contractType === "company" ? company.name : "Personal" }}
+    </h4>
+  </div>
+  <div class="col-md-2">
+    <h4>{{ client.name }}</h4>
+  </div>
+  <div class="col-md-3">
+    <h4>{{ receipt.details }}</h4>
+  </div>
+  <div class="col-md-1">
+    <h4>{{ receipt.amount }}</h4>
+  </div>
+</div>

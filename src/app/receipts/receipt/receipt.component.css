@@ -1,0 +1,18 @@
+.row {
+  text-align: center;
+  color: #666;
+}
+.col-md-2,
+.col-md-3,
+.col-md-1 {
+  border-right: 1px dotted #333;
+}
+.light-back {
+  background-color: #f4fff4;
+}
+.dark-back {
+  background-color: #e9ffe9;
+}
+h4 {
+  font-size: 16px;
+}

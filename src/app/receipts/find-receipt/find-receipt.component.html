@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2>Find payment</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <form #searchForm="ngForm">
+      <input
+        type="search"
+        (input)="onChange()"
+        name="search"
+        class="form-control"
+        placeholder="Find payment by ( Company, Name, Phone or Serial )"
+        ngModel
+        required
+      />
+    </form>
+  </div>
+</div>

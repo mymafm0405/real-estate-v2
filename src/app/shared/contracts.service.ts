@@ -24,6 +24,10 @@ export class ContractsService {
     return this.contracts.filter((contract) => contract.status === 'active');
   }
 
+  getContractById(contractId: string) {
+    return this.getContracts().find((contract) => contract.id === contractId);
+  }
+
   getExpiredContracts() {
     return this.expiredContracts;
   }

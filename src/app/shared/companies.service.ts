@@ -1,43 +1,48 @@
 import { Subject } from 'rxjs';
 import { Company } from './company.model';
 import { GeneralService } from './general.service';
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
-
 export class CompaniesService {
   companies: Company[] = [];
   companiesChanged = new Subject<boolean>();
   companyAddingStatus = new Subject<boolean>();
   newCompanyId = new Subject<string>();
 
-  constructor(private generalService: GeneralService) { }
+  constructor(private generalService: GeneralService) {}
+
+  getCompanies() {
+    return this.companies;
+  }
 
   addCompany(newCompany: Company) {
-    this.generalService.addNewData('companies', newCompany)
-      .subscribe(
-        (res: { name: string }) => {
-          this.companies.push({ ...newCompany, id: res.name });
-          this.companiesChanged.next(true);
-          this.companyAddingStatus.next(true);
-          this.newCompanyId.next(res.name);
-        }, error => {
-          console.log(error);
-          this.companyAddingStatus.next(false);
-        }
-      )
+    this.generalService.addNewData('companies', newCompany).subscribe(
+      (res: { name: string }) => {
+        this.companies.push({ ...newCompany, id: res.name });
+        this.companiesChanged.next(true);
+        this.companyAddingStatus.next(true);
+        this.newCompanyId.next(res.name);
+      },
+      (error) => {
+        console.log(error);
+        this.companyAddingStatus.next(false);
+      }
+    );
   }
 
   getCompanyById(companyId: string) {
-    return this.companies.find(company => company.id === companyId);
+    return this.companies.find((company) => company.id === companyId);
   }
 
   checkExistCompany(newCompany: Company) {
-    const foundCompany = this.companies.find(company => company.crNo === newCompany.crNo);
+    const foundCompany = this.companies.find(
+      (company) => company.crNo === newCompany.crNo
+    );
     if (foundCompany) {
       this.newCompanyId.next(foundCompany.id);
     } else {
-      this.addCompany(newCompany)
+      this.addCompany(newCompany);
     }
   }
 
@@ -46,9 +51,10 @@ export class CompaniesService {
       (res: Company[]) => {
         this.companies = res;
         this.companiesChanged.next(true);
-      }, error => {
+      },
+      (error) => {
         console.log(error);
       }
-    )
+    );
   }
 }

@@ -1,1 +1,46 @@
-<p>all-receipts works!</p>
+<app-find-receipt></app-find-receipt>
+<div class="row">
+  <div class="col-md-12">
+    <h2>All Payments</h2>
+  </div>
+</div>
+<div class="row" *ngIf="foundReceipts.length === 0">
+  <div class="col-md-12">
+    <h4 class="error">No payments found</h4>
+  </div>
+</div>
+<div class="row header">
+  <div class="col-md-1">
+    <h4>Serial</h4>
+  </div>
+  <div class="col-md-2">
+    <h4>Payment date</h4>
+  </div>
+  <div class="col-md-3">
+    <h4>Company / Personal</h4>
+  </div>
+  <div class="col-md-2">
+    <h4>Client name</h4>
+  </div>
+  <div class="col-md-3">
+    <h4>Details</h4>
+  </div>
+  <div class="col-md-1">
+    <h4>Amount</h4>
+  </div>
+</div>
+<div *ngIf="foundReceipts.length > 0">
+  <app-receipt
+    *ngFor="let receipt of foundReceipts; let i = index"
+    [receipt]="receipt"
+    [indexNumber]="i"
+  ></app-receipt>
+</div>
+<div class="row footer">
+  <div class="col-md-11">
+    <h4>Total payments</h4>
+  </div>
+  <div class="col-md-1 total-amount">
+    <h4>{{ totalPayments }}</h4>
+  </div>
+</div>

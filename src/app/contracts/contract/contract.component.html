@@ -10,7 +10,8 @@
     {{ contract.contractType === "personal" ? "Personal" : "Company" }}
   </h4>
   <h4>
-    Monthly: <span class="price">{{ contract.price }}</span>
+    Start on: <span class="start-date">{{ contract.startDate }}</span> Monthly:
+    <span class="price">{{ contract.price }}</span>
   </h4>
   <h4
     class="company-name"
@@ -46,12 +47,16 @@
     [clientId]="contract.clientId"
   ></app-add-receipt-form>
   <h4>
-    <span class="required">Required<br><br>{{ totalRequired }} QR</span
-    ><span class="payments">Paid<br><br>{{ totalPayments }} QR</span
-    ><span class="remaining">Remaining<br><br>{{ totalRemaining }} QR</span>
+    <span class="required">Required<br /><br />{{ totalRequired }} QR</span
+    ><span class="payments">Paid<br /><br />{{ totalPayments }} QR</span
+    ><span class="remaining">Remaining<br /><br />{{ totalRemaining }} QR</span>
   </h4>
-  <p class="expire-on" *ngIf="!expired">
-    <span class="valid-title">Valid unitl:</span> {{expiredDate}}
-  </p>
-  <h4 class="expired" *ngIf="expired">Expired <br> <span class="small-date">{{expiredDate}}</span></h4>
+  <h4 class="expire-on" *ngIf="!expired">
+    <span class="valid-title">Valid unitl:</span> <br />
+    <span class="small-valid-date">{{ expiredDate }}</span>
+  </h4>
+  <h4 class="expired" *ngIf="expired">
+    Expired <br />
+    <span class="small-date">{{ expiredDate }}</span>
+  </h4>
 </div>

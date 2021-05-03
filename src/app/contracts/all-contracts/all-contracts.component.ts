@@ -6,7 +6,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 @Component({
   selector: 'app-all-contracts',
   templateUrl: './all-contracts.component.html',
-  styleUrls: ['./all-contracts.component.css']
+  styleUrls: ['./all-contracts.component.css'],
 })
 export class AllContractsComponent implements OnInit, OnDestroy {
   contracts: Contract[] = [];
@@ -19,14 +19,11 @@ export class AllContractsComponent implements OnInit, OnDestroy {
     this.contractsChangedSub = this.contractsService.contractsChanged.subscribe(
       () => {
         this.contracts = this.contractsService.getContracts();
-        console.log(this.contracts);
       }
-    )
-    console.log(this.contracts);
+    );
   }
 
   ngOnDestroy() {
     this.contractsChangedSub.unsubscribe();
   }
-
 }

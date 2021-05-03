@@ -30,6 +30,8 @@ import { UnitComponent } from './units/unit/unit.component';
 import { AllUnitsComponent } from './units/all-units/all-units.component';
 import { ContractsComponent } from './contracts/contracts/contracts.component';
 import { FindContractComponent } from './contracts/find-contract/find-contract.component';
+import { ReceiptsComponent } from './receipts/receipts/receipts.component';
+import { FindReceiptComponent } from './receipts/find-receipt/find-receipt.component';
 
 const appRoutes: Routes = [
   {
@@ -56,6 +58,11 @@ const appRoutes: Routes = [
       { path: 'view-contracts', component: AllContractsComponent },
       { path: 'find-contract', component: FindContractComponent },
     ],
+  },
+  {
+    path: 'payments',
+    component: ReceiptsComponent,
+    children: [{ path: 'all-payments', component: AllReceiptsComponent }],
   },
 ];
 
@@ -87,6 +94,8 @@ const appRoutes: Routes = [
     AllUnitsComponent,
     ContractsComponent,
     FindContractComponent,
+    ReceiptsComponent,
+    FindReceiptComponent,
   ],
   imports: [
     BrowserModule,

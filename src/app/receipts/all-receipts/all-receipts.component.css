@@ -1,0 +1,32 @@
+.row {
+  text-align: center;
+}
+.error {
+  color: red;
+}
+.header {
+  text-align: center;
+  background-color: #d3d3d3;
+  color: #333;
+}
+h4 {
+  font-size: 16px;
+}
+.col-md-1,
+.col-md-2,
+.col-md-3,
+.col-md-10 {
+  border-right: 1px dotted #239c23;
+}
+.footer {
+  text-align: center;
+  background-color: #00ad00;
+  color: white;
+}
+.footer h4 {
+  font-weight: bold;
+}
+.total-amount {
+  background-color: #a2ffa2;
+  color: #333;
+}
