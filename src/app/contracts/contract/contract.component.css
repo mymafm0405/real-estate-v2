@@ -6,7 +6,7 @@
   border-radius: 18px;
   border: 8px solid #ccc;
   padding: 0;
-  height: 660px;
+  height: 850px;
   margin: 10px 0;
 }
 .contract:hover {
@@ -129,4 +129,14 @@
 .small-date {
   font-size: 14px;
   color: #ffff9f;
+}
+.terminate {
+  margin-top: 20px;
+}
+.warning {
+  color: red;
+}
+.limit {
+  color: #006db6;
+  font-weight: bold;
 }

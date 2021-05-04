@@ -79,7 +79,7 @@ export class AddReceiptFormComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.amount = this.addForm.value.amount;
     const { date, details } = this.addForm.value;
-    this.serial = this.receiptsService.getReceipts().length + 1;
+    this.serial = this.receiptsService.getReceipts().length + 1 + 1000;
     this.creationDate = this.receiptsService.getTodayDate();
 
     if (this.contract.contractType === 'company') {

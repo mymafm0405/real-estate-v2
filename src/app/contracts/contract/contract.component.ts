@@ -13,6 +13,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Contract } from 'src/app/shared/contract.model';
 import { ClientsService } from 'src/app/shared/clients.service';
 import { ReceiptsService } from 'src/app/shared/receipts.service';
+import { GeneralService } from 'src/app/shared/general.service';
 
 @Component({
   selector: 'app-contract',
@@ -31,7 +32,12 @@ export class ContractComponent implements OnInit, OnDestroy {
   totalRequired = 0;
   totalRemaining = 0;
   paymentClicked = false;
-  expiredDate:any;
+  expiredDate: any;
+
+  terminateClicked = false;
+  usedMonths: number;
+  limitPassed = false;
+  overPaid = false;
 
   areasChangedSub: Subscription;
   buildingsChangedSub: Subscription;
@@ -39,6 +45,7 @@ export class ContractComponent implements OnInit, OnDestroy {
   companiesChangedSub: Subscription;
   clientsChangedSub: Subscription;
   receiptsChangedSub: Subscription;
+  contractChangedSub: Subscription;
 
   constructor(
     private areasService: AreasService,
@@ -52,6 +59,14 @@ export class ContractComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getExpireDate();
+
+    this.contractChangedSub = this.contractsService.contractsChanged.subscribe(
+      () => {
+        this.contract = this.contractsService.getContractById(this.contract.id);
+        this.calculateTotals();
+        this.getExpireDate();
+      }
+    );
 
     this.building = this.buildingsService.getBuildingById(
       this.contract.buildingId
@@ -105,24 +120,33 @@ export class ContractComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.totalRequired = this.contract.price * this.contract.months;
-    this.totalPayments = this.receiptsService.getTotalPaymentsByContractId(
-      this.contract.id
-    );
-    this.totalRemaining = this.totalRequired - this.totalPayments;
+    this.calculateTotals();
 
     this.receiptsChangedSub = this.receiptsService.receiptsChanged.subscribe(
       () => {
-        this.totalPayments = this.receiptsService.getTotalPaymentsByContractId(
-          this.contract.id
-        );
-        this.totalRemaining = this.totalRequired - this.totalPayments;
+        // this.totalPayments = this.receiptsService.getTotalPaymentsByContractId(
+        //   this.contract.id
+        // );
+        // this.totalRemaining = this.totalRequired - this.totalPayments;
+        this.calculateTotals();
 
         setTimeout(() => {
           this.paymentClicked = false;
         }, 1500);
       }
     );
+  }
+
+  calculateTotals() {
+    this.totalRequired = this.contract.price * this.contract.months;
+    this.totalPayments = this.receiptsService.getTotalPaymentsByContractId(
+      this.contract.id
+    );
+    this.totalRemaining = this.totalRequired - this.totalPayments;
+
+    if (this.totalRemaining < 0) {
+      this.totalRemaining = 0;
+    }
   }
 
   addClicked() {
@@ -133,9 +157,50 @@ export class ContractComponent implements OnInit, OnDestroy {
     const start = new Date(this.contract.startDate);
     const expired = start.setMonth(start.getMonth() + this.contract.months);
     this.expiredDate = new Date(expired).toDateString();
-    if (this.contractsService.getExpiredContracts().find(cont => cont.id === this.contract.id)) {
+    if (this.contract.terminate) {
+      this.expiredDate = new Date(this.contract.endDate).toDateString();
+    }
+    if (
+      this.contractsService
+        .getExpiredContracts()
+        .find((cont) => cont.id === this.contract.id)
+    ) {
       this.expired = true;
     }
+  }
+
+  onTerminate() {
+    this.terminateClicked = !this.terminateClicked;
+    const todayDate = new Date();
+    const todayMonth = todayDate.getMonth();
+    const startDate = new Date(this.contract.startDate).getMonth();
+    this.usedMonths = todayMonth - startDate;
+    if (todayDate.getDate() > 7) {
+      this.limitPassed = true;
+      this.usedMonths = this.usedMonths + 1;
+    }
+
+    this.checkIfPaidIsMoreThanRequiredTemporary();
+  }
+
+  checkIfPaidIsMoreThanRequiredTemporary() {
+    const totalRequired = this.contract.price * this.usedMonths;
+    const totalPayments = this.receiptsService.getTotalPaymentsByContractId(
+      this.contract.id
+    );
+    const totalRemaining = this.totalRequired - this.totalPayments;
+
+    if (totalPayments > totalRequired) {
+      this.overPaid = true;
+    }
+  }
+
+  cancelTerminate() {
+    this.terminateClicked = false;
+  }
+  confirmTerminate() {
+    this.contractsService.terminate(this.contract);
+    this.terminateClicked = false;
   }
 
   ngOnDestroy() {
@@ -145,5 +210,6 @@ export class ContractComponent implements OnInit, OnDestroy {
     this.companiesChangedSub.unsubscribe();
     this.clientsChangedSub.unsubscribe();
     this.receiptsChangedSub.unsubscribe();
+    this.contractChangedSub.unsubscribe();
   }
 }

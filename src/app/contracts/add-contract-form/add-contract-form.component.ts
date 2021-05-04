@@ -110,7 +110,8 @@ export class AddContractFormComponent implements OnInit, OnDestroy {
       months,
       'active',
       quantity,
-      contractType
+      contractType,
+      false
     );
     this.clientsService.checkClientExist(qId, this.newClient);
   }

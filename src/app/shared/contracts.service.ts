@@ -120,15 +120,15 @@ export class ContractsService {
     );
   }
   // This is a function to get a todaty date in the following format
-  // getTodayDate() {
-  //   const today = new Date();
-  //   const dd = String(today.getDate()).padStart(2, '0');
-  //   const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-  //   const yyyy = today.getFullYear();
+  getTodayDate() {
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = today.getFullYear();
 
-  //   const currentDate = yyyy + '-' + mm + '-' + dd;
-  //   return currentDate;
-  // }
+    const currentDate = yyyy + '-' + mm + '-' + dd;
+    return currentDate;
+  }
 
   checkExpiredContracts() {
     const todayTimestamp = new Date().getTime();
@@ -141,5 +141,37 @@ export class ContractsService {
         this.expiredContracts.push(cont);
       }
     }
+  }
+
+  terminate(contract: Contract) {
+    const todayDate = new Date();
+    const todayMonth = todayDate.getMonth();
+    const startDate = new Date(contract.startDate).getMonth();
+    let usedMonths = todayMonth - startDate;
+
+    if (todayDate.getDate() > 7) {
+      usedMonths = usedMonths + 1;
+    }
+
+    this.generalService
+      .patchCurrentData('contracts', contract.id, {
+        terminate: true,
+        months: usedMonths,
+        endDate: todayDate,
+      })
+      .subscribe(() => {
+        this.expiredContracts.push(contract);
+
+        this.contracts.find((cont) => cont.id === contract.id).terminate = true;
+
+        this.contracts.find(
+          (cont) => cont.id === contract.id
+        ).endDate = new Date().toDateString();
+
+        this.contracts.find(
+          (cont) => cont.id === contract.id
+        ).months = usedMonths;
+        this.contractsChanged.next(true);
+      });
   }
 }

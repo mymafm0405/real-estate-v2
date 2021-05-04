@@ -59,4 +59,34 @@
     Expired <br />
     <span class="small-date">{{ expiredDate }}</span>
   </h4>
+  <p class="limit" *ngIf="totalPayments > totalRequired">Over Paid!!!</p>
+  <button
+    class="btn btn-danger terminate"
+    (click)="onTerminate()"
+    [disabled]="contract.terminate"
+  >
+    {{ contract.terminate ? "Terminated" : "Terminate Contract" }}
+  </button>
+  <div *ngIf="terminateClicked">
+    <h4>Are you sure you want to terminate this contract?</h4>
+    <p class="warning">
+      Required, Remaining will be reset to used months:<br />
+      ( {{ usedMonths }} Months )
+    </p>
+    <p class="limit" *ngIf="limitPassed">
+      7th of month is passed, so one extra month has been added!
+    </p>
+    <p class="limit" *ngIf="overPaid">
+      Payment of this contract will be more than required after terminated!
+    </p>
+    <h4>
+      <button class="btn btn-success btn-sm" (click)="confirmTerminate()">
+        Yes
+      </button>
+      |
+      <button class="btn btn-danger btn-sm" (click)="cancelTerminate()">
+        No
+      </button>
+    </h4>
+  </div>
 </div>
