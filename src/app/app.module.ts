@@ -32,6 +32,9 @@ import { ContractsComponent } from './contracts/contracts/contracts.component';
 import { FindContractComponent } from './contracts/find-contract/find-contract.component';
 import { ReceiptsComponent } from './receipts/receipts/receipts.component';
 import { FindReceiptComponent } from './receipts/find-receipt/find-receipt.component';
+import { ReceiptsByDateComponent } from './receipts/receipts-by-date/receipts-by-date.component';
+import { NotificationsComponent } from './contracts/notifications/notifications.component';
+import { ExpiredContractsComponent } from './contracts/notifications/expired-contracts/expired-contracts.component';
 
 const appRoutes: Routes = [
   {
@@ -63,6 +66,13 @@ const appRoutes: Routes = [
     path: 'payments',
     component: ReceiptsComponent,
     children: [{ path: 'all-payments', component: AllReceiptsComponent }],
+  },
+  {
+    path: 'notifications',
+    component: NotificationsComponent,
+    children: [
+      { path: 'expired-contracts', component: ExpiredContractsComponent },
+    ],
   },
 ];
 
@@ -96,6 +106,9 @@ const appRoutes: Routes = [
     FindContractComponent,
     ReceiptsComponent,
     FindReceiptComponent,
+    ReceiptsByDateComponent,
+    NotificationsComponent,
+    ExpiredContractsComponent,
   ],
   imports: [
     BrowserModule,

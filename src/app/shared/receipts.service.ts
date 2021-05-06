@@ -75,9 +75,14 @@ export class ReceiptsService {
     this.searchReceipts = [];
     this.receiptSearchChanged.next(this.searchReceipts);
 
+    // Find receipts by company name
     const foundCompanies = this.companiesService
       .getCompanies()
-      .filter((company) => company.name.toLowerCase().includes(search));
+      .filter(
+        (company) =>
+          company.name.toLowerCase().includes(search) ||
+          company.crNo === +search
+      );
 
     if (foundCompanies.length > 0) {
       for (let comp of foundCompanies) {
@@ -99,7 +104,71 @@ export class ReceiptsService {
         }
       }
     }
+    //
+    // Find receipts by client name or phone
+    const foundClients = this.clientsService
+      .getClients()
+      .filter(
+        (client) =>
+          client.name.toLowerCase().includes(search.toLowerCase()) ||
+          client.phone === +search
+      );
+
+    console.log(this.clientsService.getClients());
+    console.log(foundClients);
+    if (foundClients.length > 0) {
+      for (let cli of foundClients) {
+        const foundReceipts = this.getReceipts().filter(
+          (rece) => rece.clientId === cli.id
+        );
+        if (foundReceipts.length > 0) {
+          if (this.searchReceipts.length > 0) {
+            for (let rec of foundReceipts) {
+              if (
+                !this.searchReceipts.find((receipt) => receipt.id === rec.id)
+              ) {
+                this.searchReceipts.push(rec);
+              }
+            }
+          } else {
+            for (let rec of foundReceipts) {
+              this.searchReceipts.push(rec);
+            }
+          }
+        }
+      }
+    }
+    //
+
+    // Find receipts by serial number
+    const oneReceiptFoundBySerail = this.getReceipts().find(
+      (rec) => rec.serial === +search
+    );
+    if (oneReceiptFoundBySerail) {
+      if (this.searchReceipts.length > 0) {
+        if (
+          !this.searchReceipts.find(
+            (receipt) => receipt.id === oneReceiptFoundBySerail.id
+          )
+        ) {
+          this.searchReceipts.push(oneReceiptFoundBySerail);
+        }
+      } else {
+        this.searchReceipts.push(oneReceiptFoundBySerail);
+      }
+    }
+    //
 
     this.receiptSearchChanged.next(this.searchReceipts);
+  }
+
+  findReceiptsByDate(startDate: string, endDate: string) {
+    const foundReceipts = this.getReceipts().filter(
+      (receipt) =>
+        new Date(receipt.date).getTime() >= new Date(startDate).getTime() &&
+        new Date(receipt.date).getTime() <= new Date(endDate).getTime()
+    );
+    this.receiptSearchChanged.next(foundReceipts);
+    console.log(foundReceipts);
   }
 }

@@ -1,0 +1,9 @@
+<form (ngSubmit)="onSubmit()" #findForm="ngForm">
+  <h4>From:</h4>
+  <input type="date" name="start" class="form-control" ngModel required />
+  <h4>To:</h4>
+  <input type="date" name="end" class="form-control" ngModel required />
+  <button class="btn btn-danger" type="submit" [disabled]="findForm.invalid">
+    Find
+  </button>
+</form>

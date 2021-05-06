@@ -131,6 +131,7 @@ export class ContractsService {
   }
 
   checkExpiredContracts() {
+    this.expiredContracts = [];
     const todayTimestamp = new Date().getTime();
     for (let cont of this.getContracts()) {
       // const expiredTime = new Date(cont.startDate).setMonth(+cont.months);
@@ -171,6 +172,30 @@ export class ContractsService {
         this.contracts.find(
           (cont) => cont.id === contract.id
         ).months = usedMonths;
+        this.contractsChanged.next(true);
+
+        // set the unit back to be available for rent again
+        this.unitsService.changeUnitRented(contract.unitId, -contract.quantity);
+      });
+  }
+
+  setContractInActive(contractId: string) {
+    this.generalService
+      .patchCurrentData('contracts', contractId, {
+        status: 'inactive',
+      })
+      .subscribe(() => {
+        // set the unit back to be available for rent again
+        const currentContract = this.getContractById(contractId);
+        this.unitsService.changeUnitRented(
+          currentContract.unitId,
+          -currentContract.quantity
+        );
+        //
+
+        this.getContracts().find((cont) => cont.id === contractId).status =
+          'inactive';
+
         this.contractsChanged.next(true);
       });
   }

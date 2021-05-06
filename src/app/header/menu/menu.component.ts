@@ -25,7 +25,7 @@ export class MenuComponent implements OnInit {
     new MenuItem('Payments', 'payments', 'glyphicon glyphicon-usd', 'main'),
     new MenuItem(
       'Notifications',
-      'notification',
+      'notifications',
       'glyphicon glyphicon-envelope',
       'main'
     ),

@@ -67,6 +67,11 @@
   >
     {{ contract.terminate ? "Terminated" : "Terminate Contract" }}
   </button>
+  <br />
+  <br />
+  <button class="btn btn-default" *ngIf="expired" (click)="onDelete()">
+    Delete Contract
+  </button>
   <div *ngIf="terminateClicked">
     <h4>Are you sure you want to terminate this contract?</h4>
     <p class="warning">

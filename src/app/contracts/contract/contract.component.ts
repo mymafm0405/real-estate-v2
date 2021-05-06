@@ -138,14 +138,16 @@ export class ContractComponent implements OnInit, OnDestroy {
   }
 
   calculateTotals() {
-    this.totalRequired = this.contract.price * this.contract.months;
-    this.totalPayments = this.receiptsService.getTotalPaymentsByContractId(
-      this.contract.id
-    );
-    this.totalRemaining = this.totalRequired - this.totalPayments;
+    if (this.contract) {
+      this.totalRequired = this.contract.price * this.contract.months;
+      this.totalPayments = this.receiptsService.getTotalPaymentsByContractId(
+        this.contract.id
+      );
+      this.totalRemaining = this.totalRequired - this.totalPayments;
 
-    if (this.totalRemaining < 0) {
-      this.totalRemaining = 0;
+      if (this.totalRemaining < 0) {
+        this.totalRemaining = 0;
+      }
     }
   }
 
@@ -154,18 +156,20 @@ export class ContractComponent implements OnInit, OnDestroy {
   }
 
   getExpireDate() {
-    const start = new Date(this.contract.startDate);
-    const expired = start.setMonth(start.getMonth() + this.contract.months);
-    this.expiredDate = new Date(expired).toDateString();
-    if (this.contract.terminate) {
-      this.expiredDate = new Date(this.contract.endDate).toDateString();
-    }
-    if (
-      this.contractsService
-        .getExpiredContracts()
-        .find((cont) => cont.id === this.contract.id)
-    ) {
-      this.expired = true;
+    if (this.contract) {
+      const start = new Date(this.contract.startDate);
+      const expired = start.setMonth(start.getMonth() + this.contract.months);
+      this.expiredDate = new Date(expired).toDateString();
+      if (this.contract.terminate) {
+        this.expiredDate = new Date(this.contract.endDate).toDateString();
+      }
+      if (
+        this.contractsService
+          .getExpiredContracts()
+          .find((cont) => cont.id === this.contract.id)
+      ) {
+        this.expired = true;
+      }
     }
   }
 
@@ -201,6 +205,10 @@ export class ContractComponent implements OnInit, OnDestroy {
   confirmTerminate() {
     this.contractsService.terminate(this.contract);
     this.terminateClicked = false;
+  }
+
+  onDelete() {
+    this.contractsService.setContractInActive(this.contract.id);
   }
 
   ngOnDestroy() {

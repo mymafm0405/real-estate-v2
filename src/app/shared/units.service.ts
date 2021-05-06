@@ -22,7 +22,7 @@ export class UnitsService {
   }
 
   getUnitById(unitId: string) {
-    return this.units.find(unit => unit.id === unitId);
+    return this.units.find((unit) => unit.id === unitId);
   }
 
   addUnit(newUnit: Unit) {
@@ -57,7 +57,6 @@ export class UnitsService {
     this.generalService
       .patchCurrentData('units', unitId, { numOfRented: newNumOfRented })
       .subscribe(() => {
-        console.log('unit numofrented updated');
         this.units.find(
           (unit) => unit.id === unitId
         ).numOfRented = newNumOfRented;
