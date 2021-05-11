@@ -25,4 +25,8 @@ export class UnitComponent implements OnInit {
       }, 2500);
     }
   }
+
+  onDelete() {
+    this.unitsService.deleteUnit(this.unit.id);
+  }
 }

@@ -16,3 +16,11 @@ h4 {
 p {
   color: #7a7a7a;
 }
+.delete {
+  color: red;
+  text-decoration: none;
+}
+.delete:hover {
+  color: #006db6;
+  font-weight: bold;
+}

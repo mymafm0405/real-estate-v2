@@ -21,11 +21,11 @@ export class BuildingsService {
   }
 
   getBuildingById(buildingId: string) {
-    return this.buildings.find((building) => building.id === buildingId);
+    return this.getBuildings().find((building) => building.id === buildingId);
   }
 
   getBuildingsByAreaId(areaId: string) {
-    return this.buildings.filter((building) => building.areaId === areaId);
+    return this.getBuildings().filter((building) => building.areaId === areaId);
   }
 
   countUnitsRentedByBuildingId(buildingId: string) {
@@ -73,5 +73,18 @@ export class BuildingsService {
         console.log(error);
       }
     );
+  }
+
+  deleteBuilding(buildingId: string) {
+    this.generalService
+      .patchCurrentData('buildings', buildingId, {
+        status: 'inactive',
+      })
+      .subscribe(() => {
+        this.getBuildings().find(
+          (building) => building.id === buildingId
+        ).status = 'inactive';
+        this.buildingsChanged.next(true);
+      });
   }
 }

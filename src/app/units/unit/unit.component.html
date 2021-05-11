@@ -1,16 +1,22 @@
-<div class="col-md-3 unit" (click)="onUnitClick()">
-  <p class="message" *ngIf="allRented">No more units from this sample</p>
-  <div *ngIf="unit.quantity === unit.numOfRented">
-    <span class="rented"> All-Rented </span>
+<div class="col-md-3 unit">
+  <div (click)="onUnitClick()">
+    <p class="message" *ngIf="allRented">No more units from this sample</p>
+    <div *ngIf="unit.quantity === unit.numOfRented">
+      <span class="rented"> All-Rented </span>
+    </div>
+    <div *ngIf="unit.quantity > unit.numOfRented">
+      <span class="not-rented"> Available </span>
+    </div>
+    <img src="../../../assets/images/unit2.png" width="60" height="50" />
+    <h3 class="name">{{ unit.name }}</h3>
+    <p class="quantity">Total: {{ unit.quantity }}</p>
+    <p class="description">{{ unit.description }}</p>
   </div>
-  <div *ngIf="unit.quantity > unit.numOfRented">
-    <span class="not-rented"> Available </span>
-  </div>
-  <img src="../../../assets/images/unit2.png" width="60" height="50" />
-  <h3 class="name">{{ unit.name }}</h3>
-  <p class="quantity">Total: {{ unit.quantity }}</p>
-  <p class="description">{{ unit.description }}</p>
-  <button class="btn btn-danger" [disabled]="unit.numOfRented > 0">
+  <button
+    class="btn btn-danger"
+    [disabled]="unit.numOfRented > 0"
+    (click)="onDelete()"
+  >
     <span class="glyphicon glyphicon-remove"></span>
   </button>
   <p class="available">

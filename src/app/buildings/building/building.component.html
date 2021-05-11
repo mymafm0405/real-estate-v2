@@ -1,16 +1,17 @@
-<div
-  class="col-md-2 building"
-  [routerLink]="['../../building', building.id]"
-  *ngIf="area !== undefined"
->
-  <img src="../../../assets/images/building.png" width="75" height="75" />
-  <h3 class="name">{{ building.name }}</h3>
-  <h4>{{ area.name }}</h4>
-  <p class="description">{{ building.description }}</p>
-  <p class="available">
-    Available:
-    <span [ngClass]="building.unitsQuantity > 0 ? 'quantity' : 'empty'">{{
-      remainingUnits
-    }}</span>
-  </p>
+<div class="col-md-2 building" *ngIf="area !== undefined">
+  <div [routerLink]="['../../building', building.id]">
+    <img src="../../../assets/images/building.png" width="75" height="75" />
+    <h3 class="name">{{ building.name }}</h3>
+    <h4>{{ area.name }}</h4>
+    <p class="description">{{ building.description }}</p>
+    <p class="available">
+      Available:
+      <span [ngClass]="building.unitsQuantity > 0 ? 'quantity' : 'empty'">{{
+        remainingUnits
+      }}</span>
+    </p>
+  </div>
+  <a class="delete" (click)="onDelete()" *ngIf="currentlyRentedUnits === 0"
+    >Delete building</a
+  >
 </div>

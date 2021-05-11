@@ -14,6 +14,7 @@ import { UnitsService } from 'src/app/shared/units.service';
 export class BuildingComponent implements OnInit, OnDestroy {
   @Input() building: Building;
   remainingUnits = 0;
+  currentlyRentedUnits = 0;
 
   areasChangedSub: Subscription;
   area: Area;
@@ -27,6 +28,7 @@ export class BuildingComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.getCurrentlyRentedUnits();
     this.area = this.areasService.getAreaById(this.building.areaId);
     this.areasChangedSub = this.areasService.areasChanged.subscribe(() => {
       this.area = this.areasService.getAreaById(this.building.areaId);
@@ -35,6 +37,7 @@ export class BuildingComponent implements OnInit, OnDestroy {
     this.countRemaining();
     this.unitsChangedSub = this.unitsService.unitsChanged.subscribe(() => {
       this.countRemaining();
+      this.getCurrentlyRentedUnits();
     });
   }
 
@@ -42,6 +45,16 @@ export class BuildingComponent implements OnInit, OnDestroy {
     this.remainingUnits =
       this.building.unitsQuantity -
       this.buildingsService.countUnitsRentedByBuildingId(this.building.id);
+  }
+
+  getCurrentlyRentedUnits() {
+    this.currentlyRentedUnits = this.buildingsService.countUnitsRentedByBuildingId(
+      this.building.id
+    );
+  }
+
+  onDelete() {
+    this.buildingsService.deleteBuilding(this.building.id);
   }
 
   ngOnDestroy() {

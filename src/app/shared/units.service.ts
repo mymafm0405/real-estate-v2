@@ -18,7 +18,7 @@ export class UnitsService {
     return this.units.filter((unit) => unit.status === 'active');
   }
   getUnitsByBuildingId(buildingId: string) {
-    return this.units.filter((unit) => unit.buildingId === buildingId);
+    return this.getUnits().filter((unit) => unit.buildingId === buildingId);
   }
 
   getUnitById(unitId: string) {
@@ -60,6 +60,17 @@ export class UnitsService {
         this.units.find(
           (unit) => unit.id === unitId
         ).numOfRented = newNumOfRented;
+        this.unitsChanged.next(true);
+      });
+  }
+
+  deleteUnit(unitId: string) {
+    this.generalService
+      .patchCurrentData('units', unitId, {
+        status: 'inactive',
+      })
+      .subscribe(() => {
+        this.getUnits().find((unit) => unit.id === unitId).status = 'inactive';
         this.unitsChanged.next(true);
       });
   }
