@@ -211,6 +211,10 @@ export class ContractComponent implements OnInit, OnDestroy {
     this.contractsService.setContractInActive(this.contract.id);
   }
 
+  onRenew() {
+    console.log('renew');
+  }
+
   ngOnDestroy() {
     this.areasChangedSub.unsubscribe();
     this.buildingsChangedSub.unsubscribe();
