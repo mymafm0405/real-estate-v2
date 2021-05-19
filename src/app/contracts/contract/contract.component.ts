@@ -139,7 +139,8 @@ export class ContractComponent implements OnInit, OnDestroy {
 
   calculateTotals() {
     if (this.contract) {
-      this.totalRequired = this.contract.price * this.contract.months;
+      this.totalRequired =
+        this.contract.price * this.contract.months * this.contract.quantity;
       this.totalPayments = this.receiptsService.getTotalPaymentsByContractId(
         this.contract.id
       );

@@ -5,7 +5,7 @@
   <div class="col-md-2">
     <h4>{{ receipt.date }}</h4>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
     <h4>
       {{ contract.contractType === "company" ? company.name : "Personal" }}
     </h4>
@@ -13,8 +13,14 @@
   <div class="col-md-2">
     <h4>{{ client.name }}</h4>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
     <h4>{{ receipt.details }}</h4>
+  </div>
+  <div class="col-md-1">
+    <h4>{{ area.name }}</h4>
+  </div>
+  <div class="col-md-1">
+    <h4>{{ building.name }}</h4>
   </div>
   <div class="col-md-1">
     <h4>{{ receipt.amount }}</h4>

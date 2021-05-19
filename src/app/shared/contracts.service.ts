@@ -20,12 +20,16 @@ export class ContractsService {
     private clientsService: ClientsService
   ) {}
 
+  getAllContracts() {
+    return this.contracts;
+  }
+
   getContracts() {
     return this.contracts.filter((contract) => contract.status === 'active');
   }
 
   getContractById(contractId: string) {
-    return this.getContracts().find((contract) => contract.id === contractId);
+    return this.contracts.find((contract) => contract.id === contractId);
   }
 
   getExpiredContracts() {
@@ -165,13 +169,11 @@ export class ContractsService {
 
         this.contracts.find((cont) => cont.id === contract.id).terminate = true;
 
-        this.contracts.find(
-          (cont) => cont.id === contract.id
-        ).endDate = new Date().toDateString();
+        this.contracts.find((cont) => cont.id === contract.id).endDate =
+          new Date().toDateString();
 
-        this.contracts.find(
-          (cont) => cont.id === contract.id
-        ).months = usedMonths;
+        this.contracts.find((cont) => cont.id === contract.id).months =
+          usedMonths;
         this.contractsChanged.next(true);
 
         // set the unit back to be available for rent again

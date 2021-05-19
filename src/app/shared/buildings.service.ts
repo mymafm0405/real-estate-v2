@@ -21,7 +21,7 @@ export class BuildingsService {
   }
 
   getBuildingById(buildingId: string) {
-    return this.getBuildings().find((building) => building.id === buildingId);
+    return this.buildings.find((building) => building.id === buildingId);
   }
 
   getBuildingsByAreaId(areaId: string) {
